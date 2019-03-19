@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 const festivals = require("./routes/api/festivals");
 const artists = require("./routes/api/artists");
@@ -20,6 +21,12 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
+
+// Use Passport
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport.js")(passport);
 
 // Use Routes
 app.use("/api/festivals", festivals);
