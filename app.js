@@ -2,6 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
+const festivals = require("./routes/api/festivals");
+const artists = require("./routes/api/artists");
+
 const app = express();
 
 // Body Parser Middleware
@@ -16,6 +19,10 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
+
+// Use Routes
+app.use("/api/festivals", festivals);
+app.use("/api/artists", artists);
 
 const port = process.env.PORT || 5000;
 
