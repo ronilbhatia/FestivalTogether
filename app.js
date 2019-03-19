@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 
 const festivals = require("./routes/api/festivals");
 const artists = require("./routes/api/artists");
+const users = require("./routes/api/users");
 
 const app = express();
 
@@ -23,6 +24,7 @@ mongoose
 // Use Routes
 app.use("/api/festivals", festivals);
 app.use("/api/artists", artists);
+app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
 
