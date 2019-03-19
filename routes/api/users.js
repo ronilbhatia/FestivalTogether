@@ -4,6 +4,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
+// Load Input Validation
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
+
 // Load in User model
 const User = require("../../models/User");
 
@@ -19,7 +23,12 @@ router.get("/test", (req, res) => res.json({ msg: "Users works" }));
 // @desc   Register new user
 // @access Public
 router.post("/register", (req, res) => {
-  // const { isValid, errors } = validateUserInput;
+  const { isValid, errors } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       // Throw 400 error if email already exists
@@ -52,7 +61,12 @@ router.post("/register", (req, res) => {
 // @desc   Login new user
 // @access Public
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
   const { email, password } = req.body;
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   User.findOne({ email }).then(user => {
     if (!user) {
