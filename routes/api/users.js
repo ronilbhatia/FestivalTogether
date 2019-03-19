@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
+// Load in User model
 const User = require("../../models/User");
+
+// Load configuration variables
+const keys = require("../../config/keys");
 
 // @route  GET /api/users/test
 // @desc   Tests users route
@@ -39,6 +44,39 @@ router.post("/register", (req, res) => {
         });
       });
     }
+  });
+});
+
+// @route  GET /api/users/login
+// @desc   Login new user
+// @access Public
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  User.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(404).json({ email: "User does not exist" });
+    }
+
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        const payload = { id: user.id, name: user.name };
+
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: `Bearer ${token}`
+            });
+          }
+        );
+      } else {
+        res.status(400).json({ password: "Incorrect password" });
+      }
+    });
   });
 });
 
