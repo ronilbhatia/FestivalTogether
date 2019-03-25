@@ -14,7 +14,8 @@ const FestivalSchema = new Schema({
     {
       artist: {
         type: Schema.Types.ObjectId,
-        ref: "artists"
+        ref: "artists",
+        required: true
       },
       time: {
         type: Date,
