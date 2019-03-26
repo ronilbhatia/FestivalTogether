@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
+export const REMOVE_CURRENT_USER = "REMOVE_CURRENT_USER";
 
 // Helper method to attach token to localStorage after registering or logging in
 const attachToken = (token, dispatch) => {
@@ -23,15 +24,19 @@ export const receiveCurrentUser = currentUser => ({
   payload: currentUser
 });
 
+// Remove logged in user
+export const removeCurrentUser = () => ({
+  type: REMOVE_CURRENT_USER
+});
+
 // Register User
 export const registerUser = userData => dispatch => {
-  APIUtil.registerUser(userData)
+  return APIUtil.registerUser(userData)
     .then(res => {
       const { token } = res.data;
       attachToken(token, dispatch);
     })
     .catch(err => {
-      debugger;
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -41,7 +46,7 @@ export const registerUser = userData => dispatch => {
 
 // Login User
 export const loginUser = userData => dispatch => {
-  APIUtil.loginUser(userData)
+  return APIUtil.loginUser(userData)
     .then(res => {
       const { token } = res.data;
       attachToken(token, dispatch)
@@ -61,5 +66,5 @@ export const logoutUser = () => dispatch => {
   // Remove auth header for future requests
   APIUtil.setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
-  dispatch(receiveCurrentUser({}));
+  dispatch(removeCurrentUser());
 };

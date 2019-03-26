@@ -20,11 +20,12 @@ class SessionForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.processForm(this.state);
+    this.props.processForm(this.state)
+      .then(() => this.props.history.push("/"));
   }
 
   nameField() {
-    return this.props.formType === "signup" ? (
+    return this.props.formType === "Register" ? (
       <label>
         Name
         <input
@@ -37,7 +38,7 @@ class SessionForm extends Component {
   }
 
   password2Field() {
-    return this.props.formType === "signup" ? (
+    return this.props.formType === "Register" ? (
       <label>
         Confirm Password
         <input
