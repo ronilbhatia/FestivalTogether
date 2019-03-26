@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import React from "react";
 import { Link } from "react-router-dom";
 import SessionForm from "./session_form";
-import { loginUser } from "../../util/session_api_util";
+import { loginUser } from "../../actions/session_actions";
 
 const mapStateToProps = state => ({
   formType: "login",
