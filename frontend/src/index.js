@@ -5,11 +5,11 @@ import jwt_decode from "jwt-decode";
 import * as APIUtil from "./util/session_api_util";
 
 import configureStore from "./store/store";
-import App from "./App";
+import Root from "./components/Root";
 import * as serviceWorker from "./serviceWorker";
 
 document.addEventListener("DOMContentLoaded", () => {
-  let store = configureStore();
+  const store = configureStore();
   // Check for token
   if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // Grab root div and replace with react app
   const root = document.getElementById("root");
-  ReactDOM.render(<App />, root);
+  ReactDOM.render(<Root store={store} />, root);
   // If you want your app to work offline and load faster, you can change
   // unregister() to register() below. Note this comes with some pitfalls.
   // Learn more about service workers: https://bit.ly/CRA-PWA
