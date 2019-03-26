@@ -16,13 +16,14 @@ export const setAuthToken = token => {
 };
 
 // Register User
-export const registerUser = userData => dispatch => {
+export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/users/register", userData)
     .then(res => {
       // Save to localStorage
+      debugger;
       const { token } = res.data;
-      // Set token to localStorage
+      // Set token to ls
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);
@@ -31,12 +32,13 @@ export const registerUser = userData => dispatch => {
       // Set current user
       dispatch(setCurrentUser(decoded));
     })
-    .catch(err =>
+    .catch(err => {
+      debugger;
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 // Login - Get User Token

@@ -6,4 +6,4 @@ const errorsReducer = combineReducers({
   session: sessionErrorsReducer
 });
 
-export default sessionErrorsReducer;
+export default errorsReducer;
