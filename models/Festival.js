@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const FestivalSchema = new Schema({
@@ -14,7 +14,7 @@ const FestivalSchema = new Schema({
     {
       artist: {
         type: Schema.Types.ObjectId,
-        ref: "artists",
+        ref: 'artists',
         required: true
       },
       time: {
@@ -29,4 +29,4 @@ const FestivalSchema = new Schema({
   ]
 });
 
-module.exports = Festival = mongoose.model("Festival", FestivalSchema);
+module.exports = Festival = mongoose.model('Festival', FestivalSchema);

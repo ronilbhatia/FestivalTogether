@@ -1,11 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const passport = require("passport");
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
-const festivals = require("./routes/api/festivals");
-const artists = require("./routes/api/artists");
-const users = require("./routes/api/users");
+const festivals = require('./routes/api/festivals');
+const artists = require('./routes/api/artists');
+const users = require('./routes/api/users');
 
 const app = express();
 
@@ -14,24 +14,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB Config
-const db = require("./config/keys").mongoURI;
+const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB using Mongoose
 mongoose
   .connect(db, { useNewUrlParser: true })
-  .then(() => console.log("Connected to MongoDB successfully"))
+  .then(() => console.log('Connected to MongoDB successfully'))
   .catch(err => console.log(err));
 
 // Use Passport
 app.use(passport.initialize());
 
 // Passport config
-require("./config/passport.js")(passport);
+require('./config/passport.js')(passport);
 
 // Use Routes
-app.use("/api/festivals", festivals);
-app.use("/api/artists", artists);
-app.use("/api/users", users);
+app.use('/api/festivals', festivals);
+app.use('/api/artists', artists);
+app.use('/api/users', users);
 
 const port = process.env.PORT || 5000;
 
