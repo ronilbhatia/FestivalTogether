@@ -1,15 +1,15 @@
-import * as APIUtil from "../util/session_api_util";
-import jwt_decode from "jwt-decode";
+import * as APIUtil from '../util/session_api_util';
+import jwt_decode from 'jwt-decode';
 
-export const GET_ERRORS = "GET_ERRORS";
-export const CLEAR_ERRORS = "CLEAR_ERRORS";
-export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
-export const REMOVE_CURRENT_USER = "REMOVE_CURRENT_USER";
+export const GET_ERRORS = 'GET_ERRORS';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
+export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER';
 
 // Helper method to attach token to localStorage after registering or logging in
 const attachToken = (token, dispatch) => {
   // Save to localStorage
-  localStorage.setItem("jwtToken", token);
+  localStorage.setItem('jwtToken', token);
   // Set token to Auth header
   APIUtil.setAuthToken(token);
   // Decode token to get user data
@@ -62,7 +62,7 @@ export const loginUser = userData => dispatch => {
 // Log Out User
 export const logoutUser = () => dispatch => {
   // Remove token from localStorage
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem('jwtToken');
   // Remove auth header for future requests
   APIUtil.setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false

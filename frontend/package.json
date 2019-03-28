@@ -8,6 +8,7 @@
     "@babel/preset-react": "^7.0.0",
     "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
+    "node-sass": "^4.11.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-redux": "^6.0.1",
@@ -15,7 +16,8 @@
     "react-scripts": "2.1.8",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sass-loader": "^7.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

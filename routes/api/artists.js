@@ -1,18 +1,18 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const validateArtist = require("../../validation/artist");
-const Artist = require("../../models/Artist");
+const validateArtist = require('../../validation/artist');
+const Artist = require('../../models/Artist');
 
 // @route  GET /api/artists/test
 // @desc   Tests artists route
 // @access Public
-router.get("/test", (req, res) => res.json({ msg: "Artists works" }));
+router.get('/test', (req, res) => res.json({ msg: 'Artists works' }));
 
 // @route  POST /api/artists
 // @desc   Create artist
 // @access Private
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   const { isValid, errors } = validateArtist(req.body);
 
   if (!isValid) {
@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
       if (artist) {
         return res
           .status(422)
-          .json({ artist: "An artist with that name already exists" });
+          .json({ artist: 'An artist with that name already exists' });
       }
 
       const newArtist = new Artist({

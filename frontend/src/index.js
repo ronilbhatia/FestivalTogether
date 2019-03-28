@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import jwt_decode from "jwt-decode";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.scss';
+import jwt_decode from 'jwt-decode';
 
-import configureStore from "./store/store";
-import Root from "./components/Root";
-import { setAuthToken } from "./util/session_api_util";
-import { logoutUser, receiveCurrentUser } from "./actions/session_actions";
-import * as serviceWorker from "./serviceWorker";
+import configureStore from './store/store';
+import Root from './components/Root';
+import { setAuthToken } from './util/session_api_util';
+import { logoutUser, receiveCurrentUser } from './actions/session_actions';
+import * as serviceWorker from './serviceWorker';
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   const store = configureStore();
   // Check for token
   if (localStorage.jwtToken) {
@@ -26,11 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Logout user
       store.dispatch(logoutUser());
       // Redirect to login
-      window.location.href = "/login";
+      window.location.href = '/login';
     }
   }
   // Grab root div and replace with react app
-  const root = document.getElementById("root");
+  const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
   // If you want your app to work offline and load faster, you can change
   // unregister() to register() below. Note this comes with some pitfalls.
