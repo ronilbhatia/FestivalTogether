@@ -1,0 +1,16 @@
+.session-form {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 15vh;
+  padding-top: 5vh;
+
+  .form-input-container {
+    padding-bottom: 3vh;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

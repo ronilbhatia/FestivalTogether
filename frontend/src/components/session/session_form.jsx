@@ -26,7 +26,7 @@ class SessionForm extends Component {
 
   nameField() {
     return this.props.formType === "Register" ? (
-      <label>
+      <label className="form-input-container">
         Name
         <input
           type="text"
@@ -39,7 +39,7 @@ class SessionForm extends Component {
 
   password2Field() {
     return this.props.formType === "Register" ? (
-      <label>
+      <label className="form-input-container">
         Confirm Password
         <input
           type="password"
@@ -52,11 +52,11 @@ class SessionForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="session-form-container">
         <h1>{this.props.formType}</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form className="session-form" onSubmit={this.handleSubmit}>
           {this.nameField()}
-          <label>
+          <label className="form-input-container">
             Email
             <input
               type="text"
@@ -64,7 +64,7 @@ class SessionForm extends Component {
               value={this.state.email}
             />
           </label>
-          <label>
+          <label className="form-input-container">
             Password
             <input
               type="password"
