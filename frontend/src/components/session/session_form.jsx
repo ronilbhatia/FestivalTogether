@@ -51,6 +51,7 @@ class SessionForm extends Component {
   }
 
   render() {
+    debugger
     return (
       <div className="session-form-container">
         <h1>{this.props.formType}</h1>
@@ -74,8 +75,8 @@ class SessionForm extends Component {
           </label>
           {this.password2Field()}
           <input type="submit" value={this.props.formType} />
-          {this.props.navLink}
         </form>
+        {this.props.navLink}
       </div>
     );
   }

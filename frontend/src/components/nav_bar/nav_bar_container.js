@@ -1,8 +1,13 @@
 import { connect } from 'react-redux';
 import NavBar from './nav_bar';
+import { openModal } from '../../actions/modal_actions';
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.entities.session.isAuthenticated
+  isAuthenticated: state.session.isAuthenticated
 });
 
-export default connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = dispatch => ({
+  openModal: modal => dispatch(openModal(modal))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

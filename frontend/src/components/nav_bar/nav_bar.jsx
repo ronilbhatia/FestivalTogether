@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo-transparent.png';
 
-const NavBar = props => {
-  return props.isAuthenticated ? (
+const NavBar = ({ isAuthenticated, openModal }) => {
+  return isAuthenticated ? (
     <div className="nav">
       Logged in lorem ipsum dolor sit amet consectetur adipisicing elit.
       Dolorem aperiam reprehenderit velit quas! Vel labore at, cumque deserunt
@@ -14,13 +14,13 @@ const NavBar = props => {
     <div className="nav">
       <Link to="/"><img src={logo} alt="logo" /></Link>
       <div className="nav-links">
-        <NavLink className="nav-link" to="/signup">
+        <div className="nav-link" onClick={() => openModal('Register')}>
           Sign Up
-        </NavLink>
+        </div>
         <br />
-        <NavLink className="nav-link" to="/login">
+        <div className="nav-link" onClick={() => openModal('Log In')}>
           Log In
-        </NavLink>
+        </div>
       </div>
     </div>
   );

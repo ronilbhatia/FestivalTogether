@@ -1,16 +1,22 @@
-import { connect } from "react-redux";
-import React from "react";
-import { Link } from "react-router-dom";
-import SessionForm from "./session_form";
-import { registerUser } from "../../actions/session_actions";
+import { connect } from 'react-redux';
+import React from 'react';
+
+import SessionForm from './session_form';
+import { registerUser } from '../../actions/session_actions';
+import { openModal, closeModal } from '../../actions/modal_actions';
 
 const mapStateToProps = state => ({
-  formType: "Register",
-  navLink: <Link to="/login">Already have an account? Login</Link>
+  formType: 'Register'
 });
 
 const mapDispatchToProps = dispatch => ({
-  processForm: userData => dispatch(registerUser(userData))
+  processForm: userData => dispatch(registerUser(userData)),
+  navLink: (
+    <button onClick={() => dispatch(openModal('Log In'))}>
+      Already have an account? Log In
+    </button>
+  ),
+  closeModal: () => dispatch(closeModal())
 });
 
 export default connect(
