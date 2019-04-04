@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import SessionForm from './session_form';
 import { registerUser } from '../../actions/session_actions';
@@ -12,14 +13,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   processForm: userData => dispatch(registerUser(userData)),
   navLink: (
-    <button onClick={() => dispatch(openModal('Log In'))}>
-      Already have an account? Log In
-    </button>
+    <div>
+      Already have an account?
+      <button onClick={() => dispatch(openModal('Log In'))}>
+        Log In
+      </button>
+    </div>
   ),
   closeModal: () => dispatch(closeModal())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SessionForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SessionForm));

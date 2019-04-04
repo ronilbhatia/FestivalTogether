@@ -21,13 +21,14 @@ class SessionForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.processForm(this.state)
+      .then(() => this.props.closeModal())
       .then(() => this.props.history.push("/"));
   }
 
   nameField() {
     return this.props.formType === "Register" ? (
       <label className="form-input-container">
-        Name
+        <div className="form-input-title">Name</div>
         <input
           type="text"
           onChange={this.update("name")}
@@ -40,7 +41,7 @@ class SessionForm extends Component {
   password2Field() {
     return this.props.formType === "Register" ? (
       <label className="form-input-container">
-        Confirm Password
+        <div className="form-input-title">Confirm Password</div>
         <input
           type="password"
           onChange={this.update("password2")}
@@ -51,14 +52,14 @@ class SessionForm extends Component {
   }
 
   render() {
-    debugger
+    const { formType, navLink } = this.props;
     return (
       <div className="session-form-container">
-        <h1>{this.props.formType}</h1>
+        <h1>{formType}</h1>
         <form className="session-form" onSubmit={this.handleSubmit}>
           {this.nameField()}
           <label className="form-input-container">
-            Email
+            <div className="form-input-title">Email</div>
             <input
               type="text"
               onChange={this.update("email")}
@@ -66,7 +67,7 @@ class SessionForm extends Component {
             />
           </label>
           <label className="form-input-container">
-            Password
+            <div className="form-input-title">Password</div>
             <input
               type="password"
               onChange={this.update("password")}
@@ -74,9 +75,9 @@ class SessionForm extends Component {
             />
           </label>
           {this.password2Field()}
-          <input type="submit" value={this.props.formType} />
+          <input type="submit" value={formType} />
         </form>
-        {this.props.navLink}
+        {navLink}
       </div>
     );
   }

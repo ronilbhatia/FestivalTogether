@@ -5,6 +5,7 @@
   padding: 10px 40px;
   font-family: $roboto;
   font-weight: 500;
+  
   img {
     height: 40px;
   }
@@ -20,6 +21,6 @@
 }
 
 .nav-link:hover {
-  color: blue;
+  color: $light-purple;
   cursor: pointer;
 }

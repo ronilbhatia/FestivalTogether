@@ -1,16 +1,69 @@
-.session-form {
-  height: 40vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-bottom: 15vh;
-  padding-top: 5vh;
+.session-form-container {
+  color: $light-purple;
 
-  .form-input-container {
-    padding-bottom: 3vh;
-    width: 300px;
+  h1 {
+    color: $purple;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .session-form {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 50px;
+  
+    .form-input-container {
+      padding-bottom: 25px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+  
+      .form-input-title {
+        align-self: flex-start;
+        font-size: 12px;
+      }
+  
+      input {
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 12px;
+      }
+
+      input:focus {
+        border-color: $lightest-purple;
+      }
+    }
+    
+    input[type="submit"] {
+      width: 300px;
+      padding: 10px 10px;
+      background-color: $purple;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 15px;
+      color: antiquewhite;
+      cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+      background-color: $light-purple;
+    }
+  }
+
+  button {
+    border: none;
+    font-family: $roboto;
+    font-weight: 500;
+    font-size: inherit;
+    color: $purple;
+  }
+  
+  button:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
 }
+
