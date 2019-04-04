@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import logo from '../../assets/images/logo.png';
+import { Link, NavLink } from 'react-router-dom';
+import logo from '../../assets/images/logo-transparent.png';
 
 const NavBar = props => {
   return props.isAuthenticated ? (
@@ -12,7 +12,7 @@ const NavBar = props => {
     </div>
   ) : (
     <div className="nav">
-      <img src={logo} alt="logo" />
+      <Link to="/"><img src={logo} alt="logo" /></Link>
       <div className="nav-links">
         <NavLink className="nav-link" to="/signup">
           Sign Up

@@ -3,10 +3,11 @@ STEPS TO SCRAPE DATA FROM COACHELLA WEBSITE
 
 1. Visit https://www.coachella.com/lineup
 2. Scroll to the bottom of the page so all the artists are loaded
-3. Run document.querySelectorAll('[routerlinkactive='active']') to grab all artists
-4. Use Array.from to turn NodeList object into an Array.
-  a. to get the string below you can run copy() on the array generated and paste it
+3. Run `document.querySelectorAll('[routerlinkactive='active']')` to grab all artists
+4. Use `Array.from` to turn `NodeList` object into an Array.
+  a. to get the string below you can run `copy()` on the array generated and paste it
 5. Each element in the array will have a 'text' property containing info about the artist. Right now it has the name and day that the artist is performing (maybe it will have time once those are announced)
+
 */
 
 const axios = require('axios');

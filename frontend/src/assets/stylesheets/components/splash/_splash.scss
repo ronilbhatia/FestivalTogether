@@ -1,0 +1,30 @@
+.splash-main {
+  width: 100%;
+  height: 70vh;
+  background-image: url('./assets/images/coachella-background-5.jpg');
+  background-size: 100%;
+  background-position-y: 90%;
+  background-repeat: no-repeat;
+  object-fit: contain;
+}
+
+.splash-body {
+  width: 60%;
+  margin: 20px auto 0 auto;
+  font-family: $slabo;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.splash-lineup {
+  margin-top: 50px; 
+  font-weight: 700;
+  h1 {
+    text-align: start;
+  }
+  img {
+    margin-top: 10px;
+    // height: 1000px;
+    width: 100%;
+  }
+}
