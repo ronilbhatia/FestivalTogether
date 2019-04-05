@@ -8,7 +8,6 @@ class Home extends Component {
     return isAuthenticated ? (
       <div>
         Hi {currentUser.name}!
-        <button onClick={() => this.props.logoutUser()}>Log Out</button>
       </div>
     ) : (
       <div>

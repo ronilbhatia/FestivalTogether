@@ -1,11 +1,13 @@
 .nav {
+  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 40px;
   font-family: $roboto;
   font-weight: 500;
-  
+  background-color: $tan;
   img {
     height: 40px;
   }
