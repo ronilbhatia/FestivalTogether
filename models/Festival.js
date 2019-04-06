@@ -24,7 +24,31 @@ const FestivalSchema = new Schema({
       stage: {
         type: String,
         required: true
-      }
+      },
+      going: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "users"
+        }
+      ],
+      interested: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "users"
+        }
+      ],
+      notGoing: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "users"
+        }
+      ],
+      stars: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "users"
+        }
+      ]
     }
   ]
 });
