@@ -28,25 +28,25 @@ const FestivalSchema = new Schema({
       going: [
         {
           type: Schema.Types.ObjectId,
-          ref: "users"
+          ref: 'users'
         }
       ],
       interested: [
         {
           type: Schema.Types.ObjectId,
-          ref: "users"
+          ref: 'users'
         }
       ],
       notGoing: [
         {
           type: Schema.Types.ObjectId,
-          ref: "users"
+          ref: 'users'
         }
       ],
       stars: [
         {
           type: Schema.Types.ObjectId,
-          ref: "users"
+          ref: 'users'
         }
       ]
     }

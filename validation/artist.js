@@ -2,7 +2,7 @@ const Validator = require('validator');
 
 const isEmpty = require('./is-empty');
 
-module.exports = function validateArtist(data) {
+module.exports = function validateArtistInput(data) {
   const errors = {};
 
   data.name = isEmpty(data.name) ? '' : data.name;

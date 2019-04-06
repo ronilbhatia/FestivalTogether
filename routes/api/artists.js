@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const validateArtist = require('../../validation/artist');
+const validateArtistInput = require('../../validation/artist');
 const Artist = require('../../models/Artist');
 
 // @route  GET /api/artists/test
@@ -13,7 +13,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Artists works' }));
 // @desc   Create artist
 // @access Private
 router.post('/', (req, res) => {
-  const { isValid, errors } = validateArtist(req.body);
+  const { isValid, errors } = validateArtistInput(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
