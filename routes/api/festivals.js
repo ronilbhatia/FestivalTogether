@@ -19,7 +19,22 @@ router.post('/', (req, res) => {
     return res.status(400).json(errors);
   }
 
-  return res.json({ success: true });
+  Festival.findOne({ name: req.body.name, year: req.body.year })
+    .then(festival => {
+      if (festival) {
+        return res
+          .status(422)
+          .json({ festival: 'This festival already exists ' });
+      }
+
+      const newFestival = new Festival({
+        name: req.body.name,
+        year: req.body.year
+      });
+
+      newFestival.save().then(festival => res.json(festival));
+    })
+    .catch(err => res.status(400).json(err));
 });
 
 module.exports = router;
