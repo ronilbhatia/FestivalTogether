@@ -17,7 +17,11 @@ const FestivalSchema = new Schema({
         ref: 'artists',
         required: true
       },
-      time: {
+      start: {
+        type: Date,
+        required: true
+      },
+      end: {
         type: Date,
         required: true
       },
