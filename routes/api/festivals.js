@@ -82,4 +82,19 @@ router.post('/:festivalId/sets', (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
+// @route  GET /api/festivals/:id
+// @desc   Get festival info
+// @access Private
+router.get('/:id', (req, res) => {
+  Festival.findById(req.params.id)
+    .then(festival => {
+      if (!festival) {
+        return res.status(404).json({ festival: 'Festival not found' });
+      }
+
+      res.status(200).json(festival);
+    })
+    .catch(err => res.status(400).json(err));
+});
+
 module.exports = router;
