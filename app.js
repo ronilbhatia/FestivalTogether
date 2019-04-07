@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const path = require('path');
 
 const festivals = require('./routes/api/festivals');
 const artists = require('./routes/api/artists');
@@ -32,6 +33,16 @@ require('./config/passport.js')(passport);
 app.use('/api/festivals', festivals);
 app.use('/api/artists', artists);
 app.use('/api/users', users);
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('frontend/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 
 const port = process.env.PORT || 5000;
 
