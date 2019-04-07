@@ -3,11 +3,12 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import SessionForm from './session_form';
-import { registerUser } from '../../actions/session_actions';
+import { registerUser, clearErrors } from '../../actions/session_actions';
 import { openModal, closeModal } from '../../actions/modal_actions';
 
-const mapStateToProps = state => ({
-  formType: 'Register'
+const mapStateToProps = ({ errors: { session } }) => ({
+  formType: 'Register',
+  errors: session
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -15,12 +16,16 @@ const mapDispatchToProps = dispatch => ({
   navLink: (
     <div>
       Already have an account?
-      <button onClick={() => dispatch(openModal('Log In'))}>
-        Log In
-      </button>
+      <button onClick={() => dispatch(openModal('Log In'))}>Log In</button>
     </div>
   ),
-  closeModal: () => dispatch(closeModal())
+  closeModal: () => dispatch(closeModal()),
+  clearErrors: () => dispatch(clearErrors())
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SessionForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SessionForm)
+);

@@ -29,6 +29,10 @@ export const removeCurrentUser = () => ({
   type: REMOVE_CURRENT_USER
 });
 
+export const clearErrors = () => ({
+  type: CLEAR_ERRORS
+});
+
 // Register User
 export const registerUser = userData => dispatch => {
   return APIUtil.registerUser(userData)
@@ -41,23 +45,29 @@ export const registerUser = userData => dispatch => {
         type: GET_ERRORS,
         payload: err.response.data
       });
+
+      // Return a rejected promise to stop subsequent callback to close session modal
+      return Promise.reject(err);
     });
-}
+};
 
 // Login User
 export const loginUser = userData => dispatch => {
   return APIUtil.loginUser(userData)
     .then(res => {
       const { token } = res.data;
-      attachToken(token, dispatch)
+      attachToken(token, dispatch);
     })
-    .catch(err =>
+    .catch(err => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
-}
+      });
+
+      // Return a rejected promise to stop subsequent callback to close session modal
+      return Promise.reject(err);
+    });
+};
 
 // Log Out User
 export const logoutUser = () => dispatch => {
