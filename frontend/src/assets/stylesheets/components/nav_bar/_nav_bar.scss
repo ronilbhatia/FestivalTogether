@@ -8,6 +8,7 @@
   font-family: $roboto;
   font-weight: 500;
   background-color: $tan;
+
   img {
     height: 40px;
   }
@@ -25,4 +26,14 @@
 .nav-link:hover {
   color: $light-purple;
   cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .nav {
+    padding: 10px 2vw;
+
+    img {
+      height: 5vh;
+    }
+  }
 }
