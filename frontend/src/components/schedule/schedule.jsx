@@ -3,7 +3,7 @@ import ScheduleSetItem from './schedule_set_item';
 
 class Schedule extends Component {
   componentDidMount() {
-    this.props.fetchFestival('5ca94c4e67a1548856c4a1ca');
+    this.props.fetchFestivals();
   }
 
   renderSetsForStage(stage) {
@@ -25,10 +25,20 @@ class Schedule extends Component {
               width: `${width}px`
             }
 
+            const startHours = start.getHours() === 12 ? 12 : start.getHours() % 12;
+            const startMinutes = start.getMinutes() < 10 ? `0${start.getMinutes()}` : start.getMinutes();
+            const startTime = `${startHours}:${startMinutes}`
+
+            const endHours = end.getHours() === 12 ? 12 : end.getHours() % 12;
+            const endMinutes = end.getMinutes() < 10 ? `0${end.getMinutes()}` : end.getMinutes();
+            const endTime = `${endHours}:${endMinutes}`
+
             return (
               <ScheduleSetItem
                 key={set._id}
                 set={set}
+                startTime={startTime}
+                endTime={endTime}
                 style={style}
               />
             )
@@ -41,7 +51,6 @@ class Schedule extends Component {
   render() {
     return (
       <div className="schedule-container">
-        <h1>COACHELLA 2019 SCHEDULE</h1>
         <div className="schedule">
           <h2 className="schedule-times">
             <div className="schedule-times-empty"></div>

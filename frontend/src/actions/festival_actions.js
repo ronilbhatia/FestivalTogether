@@ -11,3 +11,10 @@ export const fetchFestival = festival => dispatch => (
   FestivalApiUtil.fetchFestival(festival)
     .then(festival => dispatch(receiveFestival(festival.data)))
 );
+
+export const fetchFestivals = festivals => dispatch => (
+  FestivalApiUtil.fetchFestivals()
+    .then(festivals => festivals.data.forEach(
+      festival => dispatch(receiveFestival(festival))
+    ))
+);
