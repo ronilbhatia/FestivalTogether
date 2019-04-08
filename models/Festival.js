@@ -12,9 +12,13 @@ const FestivalSchema = new Schema({
   },
   lineup: [
     {
+      // artist: {
+      //   type: Schema.Types.ObjectId,
+      //   ref: 'artists',
+      //   required: true
+      // },
       artist: {
-        type: Schema.Types.ObjectId,
-        ref: 'artists',
+        type: String,
         required: true
       },
       start: {
