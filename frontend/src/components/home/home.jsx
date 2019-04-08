@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
+
 import Splash from './splash';
+import ScheduleContainer from '../schedule/schedule_container';
 
 class Home extends Component {
   render() {
-    const { currentUser, isAuthenticated } = this.props;
+    const { isAuthenticated } = this.props;
 
-    return isAuthenticated ? (
-      <div>
-        Hi {currentUser.name}!
-      </div>
-    ) : (
-      <div>
-        <Splash />
-      </div>
-    );
+    return isAuthenticated ? <ScheduleContainer /> : <Splash />;
   }
 }
 

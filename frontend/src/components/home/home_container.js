@@ -1,8 +1,7 @@
 import { connect } from "react-redux";
 import Home from "./home";
 
-const mapStateToProps = ({ session: { user: currentUser, isAuthenticated } }) => ({
-  currentUser,
+const mapStateToProps = ({ session: { user: isAuthenticated } }) => ({
   isAuthenticated
 });
 

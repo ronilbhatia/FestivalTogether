@@ -12,7 +12,7 @@ const festivalsReducer = (state = {}, action) => {
       festival.lineup = festival.lineup.map(set => set._id);
       nextState[festival._id] = festival;
 
-      return nextState;
+      return festival;
     default:
       return state;
   }
