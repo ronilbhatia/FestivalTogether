@@ -7,10 +7,13 @@ import configureStore from './store/store';
 import Root from './components/Root';
 import { setAuthToken } from './util/session_api_util';
 import { logoutUser, receiveCurrentUser } from './actions/session_actions';
+import { addUserToSet } from './actions/festival_actions';
 import * as serviceWorker from './serviceWorker';
 
 document.addEventListener('DOMContentLoaded', () => {
   const store = configureStore();
+  window.store = store;
+  window.addUserToSet = addUserToSet;
 
   // Check for token
   if (localStorage.jwtToken) {

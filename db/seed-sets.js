@@ -44,7 +44,9 @@ axios
         artist: name
       }
 
-      axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
-        .catch(err => console.log(err));
-    }).catch(err => console.log(err));
-  });
+      Promise.resolve(
+        axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+      );
+    })
+  })
+  .catch(err => console.log(err));

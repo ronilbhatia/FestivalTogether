@@ -7,3 +7,7 @@ export const fetchFestivals = () => {
 export const fetchFestival = festivalId => {
   return axios.get(`/api/festivals/${festivalId}`);
 };
+
+export const addUserToSet = (festivalId, setId) => {
+  return axios.post(`/api/festivals/${festivalId}/sets/${setId}/going`)
+}

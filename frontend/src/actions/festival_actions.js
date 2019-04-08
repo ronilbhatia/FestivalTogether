@@ -7,8 +7,8 @@ const receiveFestival = festival => ({
   festival
 });
 
-export const fetchFestival = festival => dispatch => (
-  FestivalApiUtil.fetchFestival(festival)
+export const fetchFestival = festivalId => dispatch => (
+  FestivalApiUtil.fetchFestival(festivalId)
     .then(festival => dispatch(receiveFestival(festival.data)))
 );
 
@@ -17,4 +17,9 @@ export const fetchFestivals = festivals => dispatch => (
     .then(festivals => festivals.data.forEach(
       festival => dispatch(receiveFestival(festival))
     ))
+);
+
+export const addUserToSet = (festivalId, setId) => dispatch => (
+  FestivalApiUtil.addUserToSet(festivalId, setId)
+    .then(festival => dispatch(receiveFestival(festival.data)))
 );

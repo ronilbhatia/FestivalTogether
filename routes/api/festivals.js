@@ -108,6 +108,18 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
+// @route  GET /api/festivals/:festivalId/sets/:setId
+// @desc   Get set
+// @access Private
+router.get('/:festivalId/sets/:setId', (req, res) => {
+  Festival.findById(req.params.festivalId)
+    .then(festival => {
+      const set = festival.lineup.find(set => set._id.toHexString() === req.params.setId);
+      res.json(set);
+    })
+    .catch(err => res.status(400).json(err))
+});
+
 // @route  POST /api/festivals/:festivalId/sets/:setId/going
 // @desc   Add user to going list of set for given festival
 // @access Private
@@ -121,10 +133,58 @@ router.post(
           return res.status(404).json({ festival: 'Festival not found' });
         }
 
-        const set = festival.lineup.find(set => set._id = req.params.setId);
-        set.going.push(req.user.name);
+        const set = festival.lineup.find(set => set._id.toHexString() === req.params.setId);
+        if (!set) {
+          return res.status(404).json({ set: 'Set not found' });
+        }
 
-        festival.save().then(festival => res.json(festival));
+        
+        if (set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
+          return res.status(422).json({ set: 'You are already going to this set' });
+        }
+
+        set.going.push({ name: req.user.name, _id: req.user._id });
+        festival
+          .save()
+          .then(festival => res.json(festival))
+          .catch(err => res.status(400).json(err));
+      })
+      .catch(err => res.status(400).json(err))
+  }
+)
+
+// @route  DELETE /api/festivals/:festivalId/sets/:setId/going
+// @desc   Add user to going list of set for given festival
+// @access Private
+router.delete(
+  '/:festivalId/sets/:setId/going', 
+  passport.authenticate('jwt', { session: false }), 
+  (req, res) => {
+    Festival.findById(req.params.festivalId)
+      .then(festival => {
+        if (!festival) {
+          return res.status(404).json({ festival: 'Festival not found' });
+        }
+
+        const set = festival.lineup.find(set => set._id.toHexString() === req.params.setId);
+        if (!set) {
+          return res.status(404).json({ set: 'Set not found' });
+        }
+
+        
+        if (!set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
+          return res.status(422).json({ set: 'You are already not going to this set' });
+        }
+
+        const removeIndex = set.going
+          .map(user => user._id)
+          .indexOf(req.user._id);
+
+        set.going.splice(removeIndex, 1);
+        festival
+          .save()
+          .then(festival => res.json(festival))
+          .catch(err => res.status(400).json(err));
       })
       .catch(err => res.status(400).json(err))
   }
