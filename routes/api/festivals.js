@@ -3,7 +3,7 @@ const router = express.Router();
 
 const validateSetInput = require('../../validation/set');
 const validateFestivalInput = require('../../validation/festival');
-const Festival = require('../../models/Festival');
+const { Festival, Set } = require('../../models/Festival');
 
 // @route  GET /api/festivals/test
 // @desc   Tests festivals route
@@ -57,32 +57,34 @@ router.post('/:festivalId/sets', (req, res) => {
       }
 
       // Make sure artist exists
-      Artist.findById(req.body.artist)
-        .then(artist => {
-          if (!artist) {
-            return res
-              .status(404)
-              .json({ artist: 'Could not find this artist' });
-          }
-        })
-        .catch(err => res.status(400).json(err));
+      // Artist.findById(req.body.artist)
+      //   .then(artist => {
+      //     if (!artist) {
+      //       return res
+      //         .status(404)
+      //         .json({ artist: 'Could not find this artist' });
+      //     }
+      //   })
+      //   .catch(err => res.status(400).json(err));
 
-      const newSet = {
+      const newSet = new Set({
         artist: req.body.artist,
         start: req.body.start,
         end: req.body.end,
         stage: req.body.stage
-      };
+      });
 
-      // Add set to festival's lineup array
-      festival.lineup.push(newSet);
+      newSet.save().then(set => {
+        // Add set to festival's lineup array
+        festival.lineup.push(newSet);
 
-      festival.save().then(festival => res.json(festival));
+        festival.save()
+      }).then(festival => res.json(festival));
     })
     .catch(err => res.status(400).json(err));
 });
 
-// @route  GET /api/festivals/
+// @route  GET /api/festivals
 // @desc   Get all festivals
 // @access Private
 router.get('/', (req, res) => {

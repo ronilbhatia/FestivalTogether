@@ -5,6 +5,7 @@ const passport = require('passport');
 const path = require('path');
 
 const festivals = require('./routes/api/festivals');
+const sets = require('./routes/api/sets');
 const artists = require('./routes/api/artists');
 const users = require('./routes/api/users');
 
@@ -31,6 +32,7 @@ require('./config/passport.js')(passport);
 
 // Use Routes
 app.use('/api/festivals', festivals);
+app.use('/api/sets', sets);
 app.use('/api/artists', artists);
 app.use('/api/users', users);
 
