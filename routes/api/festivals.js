@@ -82,6 +82,16 @@ router.post('/:festivalId/sets', (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
+// @route  GET /api/festivals/
+// @desc   Get all festivals
+// @access Private
+router.get('/', (req, res) => {
+  Festival.find()
+    .then(festivals => res.json(festivals))
+    .catch(err => res.status(400).json(err))
+});
+
+
 // @route  GET /api/festivals/:id
 // @desc   Get festival info
 // @access Private
