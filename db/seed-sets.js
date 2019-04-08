@@ -25,7 +25,6 @@ axios
     const coachella = festivals.data.find(festival => (
       festival.name === 'Coachella' && festival.year === 2019
     ));
-    debugger
     const coachellaId = coachella._id;
 
     artistArr.forEach((artist, idx) => {

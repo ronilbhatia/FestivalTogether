@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 const validateSetInput = require('../../validation/set');
 const validateFestivalInput = require('../../validation/festival');
@@ -106,5 +107,27 @@ router.get('/:id', (req, res) => {
     })
     .catch(err => res.status(400).json(err));
 });
+
+// @route  POST /api/festivals/:festivalId/sets/:setId/going
+// @desc   Add user to going list of set for given festival
+// @access Private
+router.post(
+  '/:festivalId/sets/:setId/going', 
+  passport.authenticate('jwt', { session: false }), 
+  (req, res) => {
+    Festival.findById(req.params.festivalId)
+      .then(festival => {
+        if (!festival) {
+          return res.status(404).json({ festival: 'Festival not found' });
+        }
+
+        const set = festival.lineup.find(set => set._id = req.params.setId);
+        set.going.push(req.user.name);
+
+        festival.save().then(festival => res.json(festival));
+      })
+      .catch(err => res.status(400).json(err))
+  }
+)
 
 module.exports = router;

@@ -3,7 +3,7 @@ import ScheduleSetItem from './schedule_set_item';
 
 class Schedule extends Component {
   componentDidMount() {
-    this.props.fetchFestivals();
+    this.props.fetchFestival(this.props.festivalId);
   }
 
   renderSetsForStage(stage) {

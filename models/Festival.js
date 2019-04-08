@@ -34,9 +34,13 @@ const FestivalSchema = new Schema({
         required: true
       },
       going: [
+        // {
+        //   type: Schema.Types.ObjectId,
+        //   ref: 'users'
+        // }
         {
-          type: Schema.Types.ObjectId,
-          ref: 'users'
+          type: String,
+          required: true
         }
       ],
       interested: [

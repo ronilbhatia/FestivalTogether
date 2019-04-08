@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { selectSetsByStage } from '../../reducers/selectors';
-import { fetchFestivals } from '../../actions/festival_actions';
+import { fetchFestival } from '../../actions/festival_actions';
 import Schedule from './schedule';
 
 const mapStateToProps = state => ({
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchFestivals: festivalId => dispatch(fetchFestivals())
+  fetchFestival: festivalId => dispatch(fetchFestival(festivalId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
