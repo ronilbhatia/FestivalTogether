@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 import '../App.scss';
 
@@ -16,7 +17,7 @@ class App extends Component {
         <Modal />
         <NavBarContainer />
         <Switch>
-          <Route path="/myschedule" component={MyScheduleContainer} />
+          <ProtectedRoute path="/myschedule" component={MyScheduleContainer} />
           <Route path='/' component={HomeContainer} />
           <Redirect to='/' />
         </Switch>

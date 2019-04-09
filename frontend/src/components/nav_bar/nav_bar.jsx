@@ -11,6 +11,9 @@ const NavBar = ({ isAuthenticated, openModal, logoutUser }) => {
       { 
         isAuthenticated ? (
           <div className="nav-links">
+            <div className="nav-link">
+              <Link to="/myschedule">My Schedule</Link>
+            </div>
             <div className="nav-link" onClick={logoutUser}>
               Log Out
             </div>

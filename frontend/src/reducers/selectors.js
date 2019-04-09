@@ -23,7 +23,7 @@ export const selectSetsByStage = (sets, stages) => {
 }
 
 export const selectSetsForUser = (sets, user) => {
-  debugger
+  if (!user) return {};
   return selectSetsByStage(sets.filter(set => {
     return set.going.find(attendee => user.id === attendee._id)
   }))

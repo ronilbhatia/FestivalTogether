@@ -12,7 +12,7 @@ class MySchedule extends Component {
   }
   
   componentDidMount() {
-    this.props.fetchFestival('5cab93d15eee6e608ef1dc91'); // Heroku '5cac2562b214f00017a93831' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cab93d15eee6e608ef1dc91' 
+    this.props.fetchFestival('5cac2562b214f00017a93831'); // Heroku '5cac2562b214f00017a93831' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cab93d15eee6e608ef1dc91' 
   }
 
   renderDays() {
@@ -145,7 +145,7 @@ class MySchedule extends Component {
   }
   
   render() {
-    debugger
+    if (!this.props.currentUser) return null;
     return (
       <div className="schedule-container">
         <div className="schedule-header">
