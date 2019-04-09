@@ -12,8 +12,8 @@ class Home extends Component {
     return isAuthenticated ? (
       <ScheduleContainer festivalId={coachellaId} />
     ) : (
-        <Splash />
-      );
+      <Splash />
+    );
   }
 }
 
