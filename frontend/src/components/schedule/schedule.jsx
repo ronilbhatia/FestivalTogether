@@ -41,6 +41,40 @@ class Schedule extends Component {
     ) 
   }
 
+  renderKey() {
+    return (
+      <div className="schedule-key">
+        <div className="schedule-key-group">
+          <h1>You</h1>
+          <div className="schedule-key-sub-group">
+            <button className="white-circle" />
+            <div>Not Attending</div>
+          </div>
+          <div className="schedule-key-sub-group">
+            <button className="green-circle" />
+            <div>Attending</div>
+          </div>
+        </div>
+        <div className="schedule-key-group">
+          <h1>Group</h1>
+          <div className="schedule-key-sub-group">
+            <button className="light-purple-square" />
+            <div>1-5 attending</div>
+          </div>
+          <div className="schedule-key-sub-group">
+            <button className="purple-square" />
+            <div>6-10 attending</div>
+          </div>
+          <div className="schedule-key-sub-group">
+            <button className="dark-purple-square" />
+            <div>11+ attending</div>
+          </div>
+        </div>
+      </div>
+
+    )
+  }
+
   renderSetsForStage(stage) {
     const { sets } = this.props;
     const displaySets = sets[stage].filter(set => {
@@ -112,7 +146,10 @@ class Schedule extends Component {
     if (!this.props.currentUser) return null;
     return (
       <div className="schedule-container">
-        {this.renderDays()}
+        <div className="schedule-header">
+          {this.renderDays()}
+          {this.renderKey()}
+        </div>
         <div className="schedule">
           <h2 className="schedule-times">
             <div className="schedule-times-empty"></div>

@@ -1,29 +1,95 @@
 .schedule-container {
   padding-top: 75px;
 
-  .schedule-days {
+  .schedule-header {
     display: flex;
-    justify-content: flex-start;
-    padding-left: 200px;
-    padding-top: 20px;
-    font-size: 24px;
-
-    .schedule-day {
+    
+    .schedule-days {
       display: flex;
-      justify-content: center;
-      margin-right: 20px;
-      padding-bottom: 10px;
-      color: gray;
-      cursor: pointer;
+      justify-content: flex-start;
+      padding-left: 200px;
+      padding-top: 110px;
+      font-size: 24px;
+  
+      .schedule-day {
+        display: flex;
+        justify-content: center;
+        margin-right: 20px;
+        padding-bottom: 10px;
+        color: gray;
+        cursor: pointer;
+      }
+  
+      .schedule-day:hover {
+        border-bottom: 1.5px solid gray;
+      }
+  
+      .schedule-day.active {
+        color: black;
+        border-bottom: 1.5px solid black;
+      }
     }
 
-    .schedule-day:hover {
-      border-bottom: 1.5px solid gray;
-    }
+    .schedule-key {
+      display: flex;
+      align-items: flex-start;
+      width: 500px;
+      padding-left: 150px;
+      margin-top: 15px;
 
-    .schedule-day.active {
-      color: black;
-      border-bottom: 1.5px solid black;
+      .schedule-key-group {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+          font-weight: 700;
+          font-size: 16px;
+        }
+
+        .schedule-key-sub-group {
+          display: flex;
+          justify-content: flex-start;
+          padding: 10px;
+          width: 150px;
+        }
+      }
+
+      button {
+        margin-right: 10px;
+      }
+      .white-circle {
+        padding: 8px;
+        border-radius: 20px;
+        border: 1px solid black;
+      }
+
+      .green-circle {
+        padding: 8px;
+        border-radius: 20px;
+        border: 1px solid black;
+        background-color: $green; 
+      }
+
+      .light-purple-square {
+        padding: 8px;
+        border: 1px solid black;
+        background-color: $lightest-purple2; 
+      }
+
+      .purple-square {
+        padding: 8px;
+        border: 1px solid black;
+        background-color: $light-purple2; 
+      }
+      
+      .dark-purple-square {
+        padding: 8px;
+        border: 1px solid black;
+        background-color: $purple2; 
+      }
     }
   }
 
