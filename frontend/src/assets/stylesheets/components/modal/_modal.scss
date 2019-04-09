@@ -9,6 +9,8 @@
 }
 
 .modal-child {
+  max-height: 600px;
+  overflow: scroll;
   position: absolute;
   padding: 75px 100px;
   background: white;
