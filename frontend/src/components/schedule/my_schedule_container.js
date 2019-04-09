@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 
-import { selectSetsByStage } from '../../reducers/selectors';
+import { selectSetsForUser } from '../../reducers/selectors'
 import { fetchFestival } from '../../actions/festival_actions';
 import { addUserToSet, removeUserFromSet } from '../../actions/set_actions';
 import { openSetModal } from '../../actions/modal_actions';
-import Schedule from './schedule';
+import MySchedule from './my_schedule'
 
 const mapStateToProps = state => ({
-  sets: selectSetsByStage(Object.values(state.entities.sets)),
+  sets: selectSetsForUser(Object.values(state.entities.sets), state.session.user),
   currentUser: state.session.user
 });
 
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch => ({
   openSetModal: (modal, set) => dispatch(openSetModal(modal, set))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
+export default connect(mapStateToProps, mapDispatchToProps)(MySchedule);

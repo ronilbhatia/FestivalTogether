@@ -7,6 +7,7 @@ import '../App.scss';
 import Modal from './modal/modal';
 import NavBarContainer from './nav_bar/nav_bar_container';
 import HomeContainer from './home/home_container';
+import MyScheduleContainer from './schedule/my_schedule_container';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
         <Modal />
         <NavBarContainer />
         <Switch>
+          <Route path="/myschedule" component={MyScheduleContainer} />
           <Route path='/' component={HomeContainer} />
           <Redirect to='/' />
         </Switch>

@@ -6,7 +6,6 @@ import SignupFormContainer from '../session/signup_form_container';
 import SetShowContainer from '../sets/set_show_container';
 
 const Modal = ({ modal, closeModal }) => {
-  debugger
   if (!modal.type) {
     return null;
   }

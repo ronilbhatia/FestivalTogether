@@ -15,9 +15,16 @@ export const selectSetsByStage = (sets, stages) => {
   const setsByStage = {};
   stages.forEach(stage => setsByStage[stage] = []);
 
-  Object.values(sets).forEach(set => {
+  sets.forEach(set => {
     setsByStage[set.stage].push(set);
   })
 
   return setsByStage;
+}
+
+export const selectSetsForUser = (sets, user) => {
+  debugger
+  return selectSetsByStage(sets.filter(set => {
+    return set.going.find(attendee => user.id === attendee._id)
+  }))
 }
