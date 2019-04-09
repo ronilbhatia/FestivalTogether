@@ -53,6 +53,7 @@ export const registerUser = userData => dispatch => {
 
 // Login User
 export const loginUser = userData => dispatch => {
+  userData.email = userData.email.toLowerCase();
   return APIUtil.loginUser(userData)
     .then(res => {
       const { token } = res.data;
