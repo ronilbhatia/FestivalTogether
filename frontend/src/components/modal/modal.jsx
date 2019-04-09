@@ -3,18 +3,23 @@ import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
+import SetShowContainer from '../sets/set_show_container';
 
 const Modal = ({ modal, closeModal }) => {
-  if (!modal) {
+  debugger
+  if (!modal.type) {
     return null;
   }
   let component;
-  switch (modal) {
+  switch (modal.type) {
     case 'Log In':
       component = <LoginFormContainer />;
       break;
     case 'Register':
       component = <SignupFormContainer />;
+      break;
+    case 'Set Show':
+      component = <SetShowContainer setId={modal.id} />;
       break;
     default:
       return null;

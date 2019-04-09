@@ -9,7 +9,7 @@ class Schedule extends Component {
       day: 'friday'
     }
   }
-  
+
   componentDidMount() {
     this.props.fetchFestival(this.props.festivalId);
   }
@@ -17,28 +17,28 @@ class Schedule extends Component {
   renderDays() {
     return (
       <div className="schedule-days">
-        <div 
+        <div
           className={this.state.day === 'friday' ? 'schedule-day active' : 'schedule-day'}
           onClick={() => this.setState({ day: 'friday' })}
         >
-        Friday
+          Friday
         </div>
-        
-        <div 
+
+        <div
           className={this.state.day === 'saturday' ? 'schedule-day active' : 'schedule-day'}
           onClick={() => this.setState({ day: 'saturday' })}
         >
-        Saturday
+          Saturday
         </div>
 
-        <div 
+        <div
           className={this.state.day === 'sunday' ? 'schedule-day active' : 'schedule-day'}
           onClick={() => this.setState({ day: 'sunday' })}
         >
-        Sunday
+          Sunday
         </div>
       </div>
-    ) 
+    )
   }
 
   renderKey() {
@@ -133,6 +133,7 @@ class Schedule extends Component {
                 currentUser={this.props.currentUser}
                 addUserToSet={this.props.addUserToSet}
                 removeUserFromSet={this.props.removeUserFromSet}
+                openSetModal={this.props.openSetModal}
                 festivalId={this.props.festivalId}
               />
             )
