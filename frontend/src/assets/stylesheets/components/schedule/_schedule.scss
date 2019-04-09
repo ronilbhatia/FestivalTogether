@@ -1,6 +1,32 @@
 .schedule-container {
   padding-top: 75px;
 
+  .schedule-days {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 200px;
+    padding-top: 20px;
+    font-size: 24px;
+
+    .schedule-day {
+      display: flex;
+      justify-content: center;
+      margin-right: 20px;
+      padding-bottom: 10px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .schedule-day:hover {
+      border-bottom: 1.5px solid gray;
+    }
+
+    .schedule-day.active {
+      color: black;
+      border-bottom: 1.5px solid black;
+    }
+  }
+
   .schedule {
     display: flex;
     flex-direction: column;
@@ -10,6 +36,7 @@
     .schedule-times {
       display: flex;
       justify-content: space-between;
+      padding-bottom: 20px;
 
       .schedule-times-empty {
         width: 150px;
@@ -62,6 +89,29 @@
 
         p {
           font-size: 10px;
+        }
+
+        .going {
+          position: absolute;
+          border: none;
+          background: transparent;
+          font-size: 12px;
+          top: -22%;
+          font-weight: 700;
+        }
+
+        button {
+          position: absolute;
+          bottom: -7.5px;
+          right: -7.5px;
+          padding: 8px;
+          border-radius: 20px;
+          border: 1px solid black;
+        }
+
+        button:hover {
+          background: $light-gray;
+          cursor: pointer;
         }
       }
 

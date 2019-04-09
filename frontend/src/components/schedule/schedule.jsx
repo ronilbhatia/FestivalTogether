@@ -2,16 +2,61 @@ import React, { Component } from 'react';
 import ScheduleSetItem from './schedule_set_item';
 
 class Schedule extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      day: 'friday'
+    }
+  }
+  
   componentDidMount() {
     this.props.fetchFestival(this.props.festivalId);
   }
 
+  renderDays() {
+    return (
+      <div className="schedule-days">
+        <div 
+          className={this.state.day === 'friday' ? 'schedule-day active' : 'schedule-day'}
+          onClick={() => this.setState({ day: 'friday' })}
+        >
+        Friday
+        </div>
+        
+        <div 
+          className={this.state.day === 'saturday' ? 'schedule-day active' : 'schedule-day'}
+          onClick={() => this.setState({ day: 'saturday' })}
+        >
+        Saturday
+        </div>
+
+        <div 
+          className={this.state.day === 'sunday' ? 'schedule-day active' : 'schedule-day'}
+          onClick={() => this.setState({ day: 'sunday' })}
+        >
+        Sunday
+        </div>
+      </div>
+    ) 
+  }
+
   renderSetsForStage(stage) {
     const { sets } = this.props;
+    const displaySets = sets[stage].filter(set => {
+      const day = new Date(set.start).getDay();
+      if (this.state.day === 'friday') {
+        return day === 5;
+      } else if (this.state.day === 'saturday') {
+        return day === 6;
+      } else {
+        return day === 0;
+      }
+    })
     return (
       <div className="schedule-set-item-container">
         {
-          sets[stage].map(set => {
+          displaySets.map(set => {
             const start = new Date(set.start);
             const end = new Date(set.end);
             const leftOffset =
@@ -19,10 +64,21 @@ class Schedule extends Component {
             const rightOffset =
               (((end.getHours() - 12) * 150) + (end.getMinutes() * (150 / 60)));
             const width = rightOffset - leftOffset;
+            let backgroundColor = '#eee';
+            if (set.going.length > 0) {
+              backgroundColor = 'rgb(185, 186, 213)';
+            }
+            if (set.going.length > 1) {
+              backgroundColor = 'rgb(125, 128, 198)';
+            }
+            if (set.going.length > 2) {
+              backgroundColor = 'rgb(87, 91, 188)';
+            }
 
             const style = {
               left: `${leftOffset + 300}px`,
-              width: `${width}px`
+              width: `${width}px`,
+              backgroundColor
             }
 
             const startHours = start.getHours() === 12 ? 12 : start.getHours() % 12;
@@ -40,6 +96,10 @@ class Schedule extends Component {
                 startTime={startTime}
                 endTime={endTime}
                 style={style}
+                currentUser={this.props.currentUser}
+                addUserToSet={this.props.addUserToSet}
+                removeUserFromSet={this.props.removeUserFromSet}
+                festivalId={this.props.festivalId}
               />
             )
           })
@@ -49,8 +109,10 @@ class Schedule extends Component {
   }
 
   render() {
+    if (!this.props.currentUser) return null;
     return (
       <div className="schedule-container">
+        {this.renderDays()}
         <div className="schedule">
           <h2 className="schedule-times">
             <div className="schedule-times-empty"></div>
