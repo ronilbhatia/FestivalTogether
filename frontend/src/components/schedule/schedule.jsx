@@ -153,7 +153,7 @@ class Schedule extends Component {
         </div>
         <div className="schedule">
           <h2 className="schedule-times">
-            <div className="schedule-times-empty"></div>
+            <div className="schedule-times-empty"><div /></div>
             <div className="schedule-times-12">12</div>
             <div className="schedule-times-1">1</div>
             <div className="schedule-times-2">2</div>

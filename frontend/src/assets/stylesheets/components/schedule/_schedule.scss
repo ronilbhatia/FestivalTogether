@@ -104,23 +104,30 @@
       justify-content: space-between;
       padding: 15px 0;
       position: sticky;
-      top: 60px;
-      z-index: 10;
+      top: 55px;
+      z-index: 3;
       background-color: antiquewhite;
 
       .schedule-times-empty {
         width: 150px;
+        background: antiquewhite;
+        position: sticky;
+        left: 0;
       }
     }
 
     .schedule-row {
       display: flex;
       justify-content: flex-start;
-      padding: 45px 0;
       position: relative;
       
       .schedule-stage {
         width: 150px;
+        padding: 45px 0;
+        z-index: 2;
+        background-color: antiquewhite;
+        position: sticky;
+        left: 0;
       }
 
       .schedule-sets {
@@ -189,5 +196,11 @@
         background: $gray;
       }
     }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .schedule-times {
+    top: 60px;
   }
 }
