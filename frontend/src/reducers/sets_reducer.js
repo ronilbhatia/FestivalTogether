@@ -1,6 +1,7 @@
 import merge from 'lodash/merge';
 
 import { RECEIVE_FESTIVAL } from '../actions/festival_actions';
+import { RECEIVE_SET } from '../actions/set_actions';
 
 const setsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -12,6 +13,9 @@ const setsReducer = (state = {}, action) => {
         nextState[set._id] = set;
       })
 
+      return nextState;
+    case RECEIVE_SET:
+      nextState[action.set._id] = action.set;
       return nextState;
     default:
       return state;

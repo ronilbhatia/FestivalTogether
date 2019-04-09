@@ -20,7 +20,7 @@ const endTimes = ['12:35', '12:40', '12:50', '13:00', '13:05', '13:10', '13:20',
 
 console.log(startTimes.length);
 axios
-  .get('http://localhost:5000/api/festivals')
+  .get('https://festivaltogether.herokuapp.com/api/festivals')
   .then(festivals => {
     const coachella = festivals.data.find(festival => (
       festival.name === 'Coachella' && festival.year === 2019
@@ -45,7 +45,7 @@ axios
       }
 
       Promise.resolve(
-        axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+        axios.post(`https://festivaltogether.herokuapp.com/api/festivals/${coachellaId}/sets`, params)
       );
     })
   })

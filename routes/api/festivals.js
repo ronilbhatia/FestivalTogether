@@ -124,8 +124,8 @@ router.get('/:festivalId/sets/:setId', (req, res) => {
 // @desc   Add user to going list of set for given festival
 // @access Private
 router.post(
-  '/:festivalId/sets/:setId/going', 
-  passport.authenticate('jwt', { session: false }), 
+  '/:festivalId/sets/:setId/going',
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Festival.findById(req.params.festivalId)
       .then(festival => {
@@ -138,7 +138,7 @@ router.post(
           return res.status(404).json({ set: 'Set not found' });
         }
 
-        
+
         if (set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
           return res.status(422).json({ set: 'You are already going to this set' });
         }
@@ -146,7 +146,7 @@ router.post(
         set.going.push({ name: req.user.name, _id: req.user._id });
         festival
           .save()
-          .then(festival => res.json(festival))
+          .then(festival => res.json(set))
           .catch(err => res.status(400).json(err));
       })
       .catch(err => res.status(400).json(err))
@@ -157,8 +157,8 @@ router.post(
 // @desc   Add user to going list of set for given festival
 // @access Private
 router.delete(
-  '/:festivalId/sets/:setId/going', 
-  passport.authenticate('jwt', { session: false }), 
+  '/:festivalId/sets/:setId/going',
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Festival.findById(req.params.festivalId)
       .then(festival => {
@@ -171,7 +171,7 @@ router.delete(
           return res.status(404).json({ set: 'Set not found' });
         }
 
-        
+
         if (!set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
           return res.status(422).json({ set: 'You are already not going to this set' });
         }
@@ -183,7 +183,7 @@ router.delete(
         set.going.splice(removeIndex, 1);
         festival
           .save()
-          .then(festival => res.json(festival))
+          .then(festival => res.json(set))
           .catch(err => res.status(400).json(err));
       })
       .catch(err => res.status(400).json(err))

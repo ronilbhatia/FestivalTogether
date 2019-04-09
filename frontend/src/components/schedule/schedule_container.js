@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 
 import { selectSetsByStage } from '../../reducers/selectors';
-import { fetchFestival, addUserToSet, removeUserFromSet } from '../../actions/festival_actions';
+import { fetchFestival } from '../../actions/festival_actions';
+import { addUserToSet, removeUserFromSet } from '../../actions/set_actions';
 import Schedule from './schedule';
 
 const mapStateToProps = state => ({

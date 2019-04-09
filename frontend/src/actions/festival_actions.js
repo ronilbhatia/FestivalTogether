@@ -18,13 +18,3 @@ export const fetchFestivals = festivals => dispatch => (
       festival => dispatch(receiveFestival(festival))
     ))
 );
-
-export const addUserToSet = (festivalId, setId) => dispatch => (
-  FestivalApiUtil.addUserToSet(festivalId, setId)
-    .then(festival => dispatch(receiveFestival(festival.data)))
-);
-
-export const removeUserFromSet = (festivalId, setId) => dispatch => (
-  FestivalApiUtil.removeUserFromSet(festivalId, setId)
-    .then(festival => dispatch(receiveFestival(festival.data)))
-);
