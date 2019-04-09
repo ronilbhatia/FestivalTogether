@@ -1,0 +1,55 @@
+.set-show {
+  h1 {
+    font-family: $slabo;
+    font-size: 24px;
+    font-weight: 700;
+    color: $purple;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    color: $light-purple;
+  }
+
+  .set-stage {
+    padding-top: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    color: $purple;
+  }
+
+  .set-attending {
+    padding-top: 50px;
+
+    h2 {
+      font-family: $slabo;
+      font-size: 20px;
+      font-weight: 700;
+      color: $purple;
+    }
+
+    h3 {
+      padding-top: 15px;
+      font-size: 18px;
+      font-weight: 500;
+      color: $dark-purple;
+    }
+    
+    .set-attending-list {
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      li:nth-child(odd) {
+        color: $lightest-purple;
+      }
+    
+      li:nth-child(even) {
+        color: $light-purple;
+      }
+    }
+  }
+
+}
