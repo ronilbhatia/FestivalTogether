@@ -7,7 +7,7 @@ class Home extends Component {
   render() {
     const { isAuthenticated } = this.props;
 
-    const coachellaId = '5cac2562b214f00017a93831'; // Heroku '5cac2562b214f00017a93831' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cab93d15eee6e608ef1dc91'
+    const coachellaId = '5cad33c539a3204d509c86a8'; // Heroku '5cac2562b214f00017a93831' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cad33c539a3204d509c86a8'
 
     return isAuthenticated ? (
       <ScheduleContainer festivalId={coachellaId} />

@@ -102,10 +102,10 @@ class Schedule extends Component {
             if (set.going.length > 0) {
               backgroundColor = 'rgb(185, 186, 213)';
             }
-            if (set.going.length > 1) {
+            if (set.going.length > 5) {
               backgroundColor = 'rgb(125, 128, 198)';
             }
-            if (set.going.length > 2) {
+            if (set.going.length > 10) {
               backgroundColor = 'rgb(87, 91, 188)';
             }
 
