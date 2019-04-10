@@ -85,6 +85,33 @@ router.post('/:festivalId/sets', (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
+// @route  DELETE /api/festivals/:festivalId/sets/:setId
+// @desc   Delete set for festival
+// @access Private
+router.delete('/:festivalId/sets/:setId', (req, res) => {
+  Festival.findById(req.params.festivalId)
+    .then(festival => {
+      if (!festival) {
+        return res.status(404).json({ festival: 'Festival not found' });
+      }
+
+      const set = festival.lineup.find(set => set._id.toHexString() === req.params.setId);
+      if (!set) {
+        return res.status(404).json({ set: 'Set not found' });
+      }
+
+      const removeIndex = festival.lineup
+        .map(set => set._id.toHexString())
+        .indexOf(req.params.setId);
+
+      festival.lineup.splice(removeIndex, 1);
+      festival
+        .save()
+        .then(festival => res.json(festival))
+        .catch(err => res.status(400).json(err));
+    })
+});
+
 // @route  GET /api/festivals/
 // @desc   Get all festivals
 // @access Private
