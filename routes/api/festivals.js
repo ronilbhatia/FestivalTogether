@@ -57,7 +57,8 @@ router.post('/:festivalId/sets', (req, res) => {
           .json({ festival: 'Could not find a festival with this id' });
       }
 
-      // Make sure artist exists
+      // Make sure artist exists - commented out temporarily for beta version
+      /*
       Artist.findById(req.body.artist)
         .then(artist => {
           if (!artist) {
@@ -67,6 +68,7 @@ router.post('/:festivalId/sets', (req, res) => {
           }
         })
         .catch(err => res.status(400).json(err));
+      */
 
       const newSet = {
         artist: req.body.artist,
@@ -138,7 +140,6 @@ router.post(
           return res.status(404).json({ set: 'Set not found' });
         }
 
-
         if (set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
           return res.status(422).json({ set: 'You are already going to this set' });
         }
@@ -170,7 +171,6 @@ router.delete(
         if (!set) {
           return res.status(404).json({ set: 'Set not found' });
         }
-
 
         if (!set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
           return res.status(422).json({ set: 'You are already not going to this set' });
