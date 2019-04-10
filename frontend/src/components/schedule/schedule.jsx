@@ -78,9 +78,10 @@ class Schedule extends Component {
   renderSetsForStage(stage) {
     const { sets } = this.props;
     const displaySets = sets[stage].filter(set => {
-      const day = new Date(set.start).getDay();
+      const date = new Date(set.start);
+      const day = date.getDay();
       if (this.state.day === 'friday') {
-        return day === 5;
+        return day === 5 || (day === 6 && date.getHours() < 2);
       } else if (this.state.day === 'saturday') {
         return day === 6;
       } else {
@@ -93,10 +94,20 @@ class Schedule extends Component {
           displaySets.map(set => {
             const start = new Date(set.start);
             const end = new Date(set.end);
-            const leftOffset =
+            let leftOffset =
               (((start.getHours() - 12) * 150) + (start.getMinutes() * (150 / 60)));
-            const rightOffset =
+            let rightOffset =
               (((end.getHours() - 12) * 150) + (end.getMinutes() * (150 / 60)));
+            
+            if (start.getHours() < 2) {
+              leftOffset = leftOffset + (150 * (24));
+            }
+
+            if (end.getHours() < 2) {
+              rightOffset = rightOffset + (150 * (24));
+            }
+            
+              if(set.artist === 'TEST2') debugger;
             const width = rightOffset - leftOffset;
             let backgroundColor = '#eee';
             if (set.going.length > 0) {
