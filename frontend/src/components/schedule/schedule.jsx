@@ -126,11 +126,11 @@ class Schedule extends Component {
               backgroundColor
             }
 
-            const startHours = start.getHours() === 12 ? 12 : start.getHours() % 12;
+            const startHours = (start.getHours() === 12 || start.getHours() === 0) ? 12 : start.getHours() % 12;
             const startMinutes = start.getMinutes() < 10 ? `0${start.getMinutes()}` : start.getMinutes();
             const startTime = `${startHours}:${startMinutes}`
 
-            const endHours = end.getHours() === 12 ? 12 : end.getHours() % 12;
+            const endHours = (end.getHours() === 12 || end.getHours() === 0) ? 12 : end.getHours() % 12;
             const endMinutes = end.getMinutes() < 10 ? `0${end.getMinutes()}` : end.getMinutes();
             const endTime = `${endHours}:${endMinutes}`
 
