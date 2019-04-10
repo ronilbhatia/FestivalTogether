@@ -10,9 +10,9 @@ class MySchedule extends Component {
       day: 'friday'
     }
   }
-  
+
   componentDidMount() {
-    this.props.fetchFestival('5cad33c539a3204d509c86a8'); // Heroku '5cac2562b214f00017a93831' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cad33c539a3204d509c86a8' 
+    this.props.fetchFestival('5cac23ed469ac6099c79d0ce'); // Heroku '5cac2562b214f00017a93831' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cad33c539a3204d509c86a8' 
   }
 
   renderDays() {
@@ -143,7 +143,7 @@ class MySchedule extends Component {
       </div>
     )
   }
-  
+
   render() {
     if (!this.props.currentUser) return null;
     return (
