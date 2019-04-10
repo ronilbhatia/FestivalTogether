@@ -123,6 +123,8 @@ class Schedule extends Component {
             const endMinutes = end.getMinutes() < 10 ? `0${end.getMinutes()}` : end.getMinutes();
             const endTime = `${endHours}:${endMinutes}`
 
+            if (start.getHours() === 23 && set.artists === 'Janelle Monae') return null;
+
             return (
               <ScheduleSetItem
                 key={set._id}
