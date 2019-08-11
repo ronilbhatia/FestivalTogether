@@ -12,7 +12,7 @@ class MySchedule extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchFestival('5cae405dec8b5f00178997c5'); // Heroku '5cae3da6c3cca80017930680' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cad33c539a3204d509c86a8' 
+    this.props.fetchFestival('5cac23ed469ac6099c79d0ce'); // Heroku '5cae3da6c3cca80017930680' // Development: Personal: '5cac23ed469ac6099c79d0ce', Work: '5cad33c539a3204d509c86a8' 
   }
 
   renderDays() {

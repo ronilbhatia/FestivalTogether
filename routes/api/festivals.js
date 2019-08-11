@@ -204,8 +204,8 @@ router.delete(
         }
 
         const removeIndex = set.going
-          .map(user => user._id)
-          .indexOf(req.user._id);
+          .map(user => user._id.toHexString())
+          .indexOf(req.user._id.toHexString());
 
         set.going.splice(removeIndex, 1);
         festival
