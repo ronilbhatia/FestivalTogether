@@ -41,6 +41,7 @@ export const registerUser = userData => dispatch => {
       attachToken(token, dispatch);
     })
     .catch(err => {
+      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
