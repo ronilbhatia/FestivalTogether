@@ -1,4 +1,4 @@
-/* 
+/*
 STEPS TO SCRAPE DATA FROM COACHELLA WEBSITE
 
 1. Visit https://www.coachella.com/lineup
