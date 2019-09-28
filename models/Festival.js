@@ -1,6 +1,50 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const SetSchema = new Schema({
+  artist: {
+    type: Schema.Types.ObjectId,
+    ref: 'Artist',
+    required: true
+  },
+  start: {
+    type: Date,
+    required: true
+  },
+  end: {
+    type: Date,
+    required: true
+  },
+  stage: {
+    type: String,
+    required: true
+  },
+  going: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  interested: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  notGoing: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  stars: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'users'
+    }
+  ]
+});
+
 const FestivalSchema = new Schema({
   name: {
     type: String,
@@ -10,63 +54,7 @@ const FestivalSchema = new Schema({
     type: Number,
     required: true
   },
-  lineup: [
-    {
-      // artist: {
-      //   type: Schema.Types.ObjectId,
-      //   ref: 'artists',
-      //   required: true
-      // },
-      artist: {
-        type: String,
-        required: true
-      },
-      start: {
-        type: Date,
-        required: true
-      },
-      end: {
-        type: Date,
-        required: true
-      },
-      stage: {
-        type: String,
-        required: true
-      },
-      going: [
-        // {
-        //   type: Schema.Types.ObjectId,
-        //   ref: 'users'
-        // }
-        {
-          name: {
-            type: String,
-          },
-          _id: {
-            type: Schema.Types.ObjectId,
-          }
-        }
-      ],
-      interested: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'users'
-        }
-      ],
-      notGoing: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'users'
-        }
-      ],
-      stars: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'users'
-        }
-      ]
-    }
-  ]
+  lineup: [SetSchema]
 });
 
 module.exports = Festival = mongoose.model('Festival', FestivalSchema);
