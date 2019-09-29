@@ -18,25 +18,14 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Festival.findById(req.params.festivalId)
-      .then(festival => {
-        debugger
-        if (!festival) {
+    // Make sure artist exists
+    Artist.findById(req.body.artist)
+      .then(artist => {
+        if (!artist) {
           return res
             .status(404)
-            .json({ festival: 'Could not find a festival with this id' });
+            .json({ artist: 'Could not find this artist' });
         }
-
-        // Make sure artist exists - commented out temporarily for beta version
-        Artist.findById(req.body.artist)
-          .then(artist => {
-            if (!artist) {
-              return res
-                .status(404)
-                .json({ artist: 'Could not find this artist' });
-            }
-          })
-          .catch(err => res.status(400).json(err));
 
         const newSet = {
           artist: req.body.artist,
@@ -45,12 +34,14 @@ router.post(
           stage: req.body.stage
         };
 
-        // Add set to festival's lineup array
-        festival.lineup.push(newSet);
-
-        festival.save().then(festival => res.json(festival));
+        Festival.findOneAndUpdate(
+          { _id: req.params.festivalId },
+          { $push: { lineup: newSet } },
+          { "new": true })
+          .then(festival => res.status(200).json(festival))
+          .catch(err => res.status(400).json({ festival: 'Festival not found' }));
       })
-      .catch(err => res.status(400).json(err));
+      .catch(err => res.status(400).json({ artist: 'Could not find this artist' }));
   });
 
 // @route  GET /api/festivals/:festivalId/sets/:setId
