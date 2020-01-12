@@ -38,7 +38,7 @@ class ScheduleSetItem extends Component {
       if (!this.state.going) backgroundColor = '#ccc';
       setStyle.backgroundColor = style.backgroundColor;
     }
-
+    debugger
     return (
       <div className="schedule-set-item"
         style={setStyle}
@@ -46,7 +46,7 @@ class ScheduleSetItem extends Component {
         onMouseLeave={() => this.setState({ boxHover: false })}
         onClick={this.handleClick}
       >
-        <h3>{set.artist}</h3>
+        <h3>{typeof set.artist === 'string' ? set.artist : set.artist.name}</h3>
         <p>{startTime} - {endTime}</p>
         <button
           style={{ backgroundColor }}

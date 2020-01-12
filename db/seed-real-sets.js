@@ -10,6 +10,7 @@ STEPS TO SCRAPE DATA FROM COACHELLA WEBSITE
 */
 
 const axios = require('axios');
+axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZTJmOTExNWRjYjgxNjBhMTdjMzQyOSIsIm5hbWUiOiJSb25pbCBCaGF0aWEiLCJlbWFpbCI6InJvbmlsYmhhdGlhQGdtYWlsLmNvbSIsImlhdCI6MTU3ODc4NDMwNiwiZXhwIjoxNTc5Mzg5MTA2fQ.Cpj3F-PX1Ww2GEMlVss0ryKv52zgwZaJkt9Y8u-jr5I';
 
 let artists = [
   "070 Shake Gobi Sun, April 14, 7:15 pm - 7:50 pm Gobi Sun, April 21, 7:15 pm - 7:55 pm Add to favorites ",
@@ -258,18 +259,15 @@ const stages = [
 ];
 
 axios
-  .get('http://localhost:5000/api/festivals')
-  .then(festivals => {
-    const coachella = festivals.data.find(festival => (
-      festival.name === 'Coachella' && festival.year === 2019
-    ));
-    const coachellaId = coachella._id;
-    
+  .get('http://localhost:5000/api/festivals/search?name=Coachella&year=2020')
+  .then(coachella => {
+    const coachellaId = coachella.data._id;
+
     artists.forEach(artist => {
       const artistArr = artist.split(',');
       let artistNameArr = artistArr[0].split(' ')
       let splitIdx;
-      
+
       for (let i = 0; i < stages.length; i++) {
         const stageIdx = artistNameArr.indexOf(stages[i])
         if (stageIdx !== -1) {
@@ -277,27 +275,19 @@ axios
           break;
         }
       }
-      
+
       const name = artistNameArr.slice(0, splitIdx).join(' ')
 
       console.log(`Adding ${name}`);
 
       const day = artistArr[1].split(' ')[2];
-      
+
       let times = artistArr[2].split(' ').join('').split('pm');
       if (times.length === 1) times = times[0].split('am');
       let startTime = times[0];
       let endTime = times[1].replace('-', '');
 
-      startHour = startTime.split(':')[0]
-      endHour = endTime.split(':')[0]
-      if (startHour.length === 1) startTime = '0' + startTime;
-      if (endHour.length === 1) endTime = '0' + endTime;
-      // there is no end time if `times` is of length 2
-      if (times.length === 2) endTime = '01:00'
-      
-      const start = `2019-04-${day} ${startTime}`;
-      const end = `2019-04-${day} ${endTime}`;
+      const [start, end] = calcTimes(day, startTime, endTime);
 
       let stage = artistNameArr[artistNameArr.length - 2];
 
@@ -308,19 +298,39 @@ axios
       } else if (stage === 'DoLab') {
         return;
       }
-      
+
       const params = {
         start,
         end,
-        stage,
-        artist: name
+        stage
       }
 
-      console.log("Here's the params \n", params);
 
       Promise.resolve(
-        axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+        axios.post(`http://localhost:5000/api/artists`, { name }).then(artist => {
+          params.artist = artist.data._id
+          console.log("Here's the params \n", params);
+          axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+            .catch(err => console.log(err))
+        }).catch(err => console.log(err))
       );
     })
   })
   .catch(err => console.log(err));
+
+function calcTimes(day, startTime, endTime) {
+  let startHour = parseInt(startTime.split(':')[0]) + 5;
+  let endHour = parseInt(endTime.split(':')[0]) + 5;
+
+  if (startHour > 12) {
+    startHour = startHour % 12;
+  }
+  if (startHour.length === 1) startTime = '0' + startTime;
+  if (endHour.length === 1) endTime = '0' + endTime;
+  // there is no end time if `times` is of length 2
+  if (times.length === 2) endTime = '01:00'
+
+  const start = `2019-04-${day} ${startTime}`;
+  const end = `2019-04-${day} ${endTime}`;
+  return [start, end];
+}

@@ -79,9 +79,10 @@ class Schedule extends Component {
     const { sets } = this.props;
     const displaySets = sets[stage].filter(set => {
       const date = new Date(set.start);
-      const day = date.getDay();
+      // let [date, time] = set.start.split('T')
+      const day = date.getUTCDay();
       if (this.state.day === 'friday') {
-        return day === 5 || (day === 6 && date.getHours() < 2);
+        return day === 5 || (day === 6 && date.getUTCHours() < 2);
       } else if (this.state.day === 'saturday') {
         return day === 6;
       } else {
@@ -95,19 +96,18 @@ class Schedule extends Component {
             const start = new Date(set.start);
             const end = new Date(set.end);
             let leftOffset =
-              (((start.getHours() - 12) * 150) + (start.getMinutes() * (150 / 60)));
+              (((start.getUTCHours() - 12) * 150) + (start.getUTCMinutes() * (150 / 60)));
             let rightOffset =
-              (((end.getHours() - 12) * 150) + (end.getMinutes() * (150 / 60)));
+              (((end.getUTCHours() - 12) * 150) + (end.getUTCMinutes() * (150 / 60)));
 
-            if (start.getHours() < 2) {
+            if (start.getUTCHours() < 2) {
               leftOffset = leftOffset + (150 * (24));
             }
 
-            if (end.getHours() < 2) {
+            if (end.getUTCHours() < 2) {
               rightOffset = rightOffset + (150 * (24));
             }
 
-            if (set.artist === 'TEST2') debugger;
             const width = rightOffset - leftOffset;
             let backgroundColor = '#eee';
             if (set.going.length > 0) {
@@ -126,15 +126,15 @@ class Schedule extends Component {
               backgroundColor
             }
 
-            const startHours = (start.getHours() === 12 || start.getHours() === 0) ? 12 : start.getHours() % 12;
-            const startMinutes = start.getMinutes() < 10 ? `0${start.getMinutes()}` : start.getMinutes();
+            const startHours = (start.getUTCHours() === 12 || start.getUTCHours() === 0) ? 12 : start.getUTCHours() % 12;
+            const startMinutes = start.getUTCMinutes() < 10 ? `0${start.getUTCMinutes()}` : start.getUTCMinutes();
             const startTime = `${startHours}:${startMinutes}`
 
-            const endHours = (end.getHours() === 12 || end.getHours() === 0) ? 12 : end.getHours() % 12;
-            const endMinutes = end.getMinutes() < 10 ? `0${end.getMinutes()}` : end.getMinutes();
+            const endHours = (end.getUTCHours() === 12 || end.getUTCHours() === 0) ? 12 : end.getUTCHours() % 12;
+            const endMinutes = end.getUTCMinutes() < 10 ? `0${end.getUTCMinutes()}` : end.getUTCMinutes();
             const endTime = `${endHours}:${endMinutes}`
 
-            if (start.getHours() === 23 && set.artists === 'Janelle Monae') return null;
+            if (start.getUTCHours() === 23 && set.artists === 'Janelle Monae') return null;
 
             return (
               <ScheduleSetItem
