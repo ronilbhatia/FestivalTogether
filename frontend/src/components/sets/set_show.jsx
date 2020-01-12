@@ -17,7 +17,7 @@ class SetShow extends Component {
 
     return (
       <div className="set-show">
-        <h1>{set.artist}</h1>
+        <h1>{typeof set.artist === 'string' ? set.artist : set.artist.name}</h1>
         <p>{startTime} - {endTime}</p>
         <h2 className="set-stage">{set.stage}</h2>
         <div className="set-attending">
@@ -26,11 +26,11 @@ class SetShow extends Component {
             set.going.length === 0 ? (
               <h3>No one :(</h3>
             ) : (
-              <ul className="set-attending-list">
-                {/* <h4>{set.going.length} homies goin!</h4> */}
-                {set.going.map(user => <li key={user._id}>{user.name}</li>)}
-              </ul>
-            )
+                <ul className="set-attending-list">
+                  {/* <h4>{set.going.length} homies goin!</h4> */}
+                  {set.going.map(user => <li key={user._id}>{user.name}</li>)}
+                </ul>
+              )
           }
         </div>
       </div>

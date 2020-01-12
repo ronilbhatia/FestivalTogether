@@ -17,7 +17,6 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
     // Make sure artist exists
     Artist.findById(req.body.artist)
       .then(artist => {
@@ -37,7 +36,7 @@ router.post(
         Festival.findOneAndUpdate(
           { _id: req.params.festivalId },
           { $push: { lineup: newSet } },
-          { "new": true })
+          { new: true })
           .then(festival => res.status(200).json(festival))
           .catch(err => res.status(400).json({ festival: 'Festival not found' }));
       })

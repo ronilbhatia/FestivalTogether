@@ -11,9 +11,9 @@ const sets = require('./sets');
 // @access Public
 router.get('/test', (req, res) => res.json({ msg: 'Festivals works' }));
 
-// @route  GET /api/festivals/
+// @route  GET /api/festivals
 // @desc   Get all festivals
-// @access Private
+// @access Public
 router.get('/', (req, res) => {
   Festival.find()
     .then(festivals => res.json(festivals))
@@ -71,6 +71,8 @@ router.get('/search', (req, res) => {
 // @access Public
 router.get('/:id', (req, res) => {
   Festival.findById(req.params.id)
+    // .populate({ path: 'lineup', populate: { path: 'artist', model: 'Artist' } })
+    .populate({ path: 'lineup.artist' })
     .then(festival => {
       if (!festival) {
         return res.status(404).json({ festival: 'Festival not found' });
