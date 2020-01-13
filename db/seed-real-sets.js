@@ -4,13 +4,13 @@ STEPS TO SCRAPE DATA FROM COACHELLA WEBSITE
 1. Visit https://www.coachella.com/lineup
 2. Scroll to the bottom of the page so all the artists are loaded
 3. Run `document.querySelectorAll("[routerlinkactive='active']")` to grab all artists
-4. Map over this extracting the text property from each element in the array
-5. Use `Array.from` to turn `NodeList` object into an Array.
+4. Use `Array.from` to turn `NodeList` object into an Array.
+5. Map over this extracting the text property from each element in the array
   a. to get the string below you can run `copy()` on the array generated and paste it in
 */
 
 const axios = require('axios');
-axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZTJmOTExNWRjYjgxNjBhMTdjMzQyOSIsIm5hbWUiOiJSb25pbCBCaGF0aWEiLCJlbWFpbCI6InJvbmlsYmhhdGlhQGdtYWlsLmNvbSIsImlhdCI6MTU3ODc4NDMwNiwiZXhwIjoxNTc5Mzg5MTA2fQ.Cpj3F-PX1Ww2GEMlVss0ryKv52zgwZaJkt9Y8u-jr5I';
+axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZTJmOTExNWRjYjgxNjBhMTdjMzQyOSIsIm5hbWUiOiJSb25pbCBCaGF0aWEiLCJlbWFpbCI6InJvbmlsYmhhdGlhQGdtYWlsLmNvbSIsImlhdCI6MTU3ODg2OTM5MSwiZXhwIjoxNTc5NDc0MTkxfQ.CWwpit2j7duMUVr7BcPbyqCv3yQFb8m5K3nv6ukJk-g';
 
 let artists = [
   "070 Shake Gobi Sun, April 14, 7:15 pm - 7:50 pm Gobi Sun, April 21, 7:15 pm - 7:55 pm Add to favorites ",
@@ -33,7 +33,7 @@ let artists = [
   "BAYNK DoLab Fri, April 19, 1:15 pm - 2:15 pm Add to favorites ",
   "Bazzi Coachella Stage Sat, April 13, 6:05 pm - 6:45 pm Coachella Stage Sat, April 20, 6:05 pm - 6:45 pm Add to favorites ",
   "Beach Fossils Gobi Fri, April 19, 4:10 pm - 4:55 pm Gobi Fri, April 12, 4:10 pm - 4:55 pm Add to favorites ",
-  // "BearTraxx b2b Special Guest Sahara Saturday, April 13 Sahara Saturday, April 20 Sahara Sat, April 13, 1:35 pm - 2:20 pm Add to favorites ",
+  // "BearTraxx b2b Special Guest Sahara Saturday, April 13, 1:35 pm - 2:20 pm Add to favorites ",
   "Billie Eilish Outdoor Theatre Sat, April 20, 9:35 pm - 10:40 pm Outdoor Theatre Sat, April 13, 9:35 pm - 10:40 pm Add to favorites ",
   "BLACKPINK Sahara Fri, April 12, 8:00 pm - 9:00 pm Sahara Fri, April 19, 8:00 pm - 9:00 pm Add to favorites ",
   "Bleep Bloop DoLab Fri, April 12, 7:15 pm - 8:30 pm Add to favorites ",
@@ -264,7 +264,7 @@ axios
     const coachellaId = coachella.data._id;
 
     artists.forEach(artist => {
-      const artistArr = artist.split(',');
+      const artistArr = artist.split(', ');
       let artistNameArr = artistArr[0].split(' ')
       let splitIdx;
 
@@ -280,14 +280,12 @@ axios
 
       console.log(`Adding ${name}`);
 
-      const day = artistArr[1].split(' ')[2];
+      const day = parseInt(artistArr[1].split(' ')[1]);
 
-      let times = artistArr[2].split(' ').join('').split('pm');
-      if (times.length === 1) times = times[0].split('am');
-      let startTime = times[0];
-      let endTime = times[1].replace('-', '');
-
-      const [start, end] = calcTimes(day, startTime, endTime);
+      // let times = artistArr[2].split(' ').join('').split('pm');
+      // if (times.length === 1) times = times[0].split('am');
+      debugger
+      const [start, end] = calcTimes(day, artistArr[2]);
 
       let stage = artistNameArr[artistNameArr.length - 2];
 
@@ -302,35 +300,68 @@ axios
       const params = {
         start,
         end,
-        stage
+        stage,
+        artist: name
       }
 
-
-      Promise.resolve(
-        axios.post(`http://localhost:5000/api/artists`, { name }).then(artist => {
-          params.artist = artist.data._id
-          console.log("Here's the params \n", params);
-          axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
-            .catch(err => console.log(err))
-        }).catch(err => console.log(err))
-      );
+      console.log("Here's the params \n", params);
+      axios
+        .post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+        .catch(err => console.log(err))
+      // Promise.resolve(
+      //   axios.post(`http://localhost:5000/api/artists`, { name }).then(artist => {
+      //     params.artist = artist.data._id
+      //     console.log("Here's the params \n", params);
+      //     axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+      //       .catch(err => console.log(err))
+      //   }).catch(err => console.log(err))
+      // );
     })
   })
   .catch(err => console.log(err));
 
-function calcTimes(day, startTime, endTime) {
-  let startHour = parseInt(startTime.split(':')[0]) + 5;
-  let endHour = parseInt(endTime.split(':')[0]) + 5;
+function calcTimes(day, timeStr) {
+  let [startTime, endTime] = timeStr
+    .split(' - ')
+    .map(str => str.split(' ').slice(0, 2));
+  debugger
+  let endDay = day;
+  let startHour = parseInt(startTime[0].split(':')[0]);
+  let endHour = endTime ? parseInt(endTime[0].split(':')[0]) : 0;
 
-  if (startHour > 12) {
-    startHour = startHour % 12;
+  let startMinutes = startTime[0].split(':')[1];
+  let endMinutes = endTime ? endTime[0].split(':')[1] : 0;
+
+  if (startTime[1] === 'pm' && startHour !== 12) startHour += 12;
+  if (endTime && (endTime[1] === 'pm' && endHour !== 12)) endHour += 12;
+  startHour -= 1;
+  endHour -= 1;
+
+  if (startHour > 23) {
+    startHour %= 24;
+    day += 1;
   }
-  if (startHour.length === 1) startTime = '0' + startTime;
-  if (endHour.length === 1) endTime = '0' + endTime;
-  // there is no end time if `times` is of length 2
-  if (times.length === 2) endTime = '01:00'
 
-  const start = `2019-04-${day} ${startTime}`;
-  const end = `2019-04-${day} ${endTime}`;
+  if (endHour > 23) {
+    endHour %= 24;
+    endDay += 1;
+  }
+
+  // Accounting for sets that start or end between 12am and 1am
+  if (startTime[1] === 'am' && startHour === 11) startHour = 23;
+  if (endTime && (endTime[1] === 'am' && endHour === 11)) endHour = 23;
+
+  // Sets that start before 12am but end between 12am and 1am
+  if (endHour === 23 && startHour !== 23) endDay += 1;
+
+  let startTimeStr = startHour + ':' + startMinutes;
+  let endTimeStr = endHour + ':' + endMinutes;
+  if (startHour < 10) startTimeStr = '0' + startTimeStr;
+  if (endHour < 10) endTimeStr = '0' + endTimeStr;
+  // there is no end time if `times` is of length 2
+  if (!endTime) endTimeStr = '00:00';
+
+  const start = `2019-04-${day} ${startTimeStr}-08:00`;
+  const end = `2019-04-${endDay} ${endTimeStr}-08:00`;
   return [start, end];
 }
