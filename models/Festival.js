@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const SetSchema = new Schema({
   artist: {
     type: Schema.Types.ObjectId,
+    // type: String,
     ref: 'Artist',
     required: true
   },

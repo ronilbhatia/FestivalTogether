@@ -78,7 +78,16 @@ router.get('/:id', (req, res) => {
         return res.status(404).json({ festival: 'Festival not found' });
       }
 
-      res.status(200).json(festival);
+      // So this doesn't break for the first year where artist names rather than
+      // ids were used
+      if (festival.year === 2019 && festival.name === 'Coachella') {
+        res.status(200).json(festival);
+      } else {
+        // festival.populate({ path: 'lineup.artist' }).then(festival => {
+        console.log(festival);
+        res.status(200).json(festival);
+        // }).catch(err => res.status(400).json(err));
+      }
     })
     .catch(err => res.status(400).json(err));
 });

@@ -18,28 +18,27 @@ router.post(
       return res.status(400).json(errors);
     }
     // Make sure artist exists
-    Artist.findById(req.body.artist)
-      .then(artist => {
-        if (!artist) {
-          return res
-            .status(404)
-            .json({ artist: 'Could not find this artist' });
-        }
+    Artist.findById(req.body.artist).then(artist => {
+      if (!artist) {
+        return res
+          .status(404)
+          .json({ artist: 'Could not find this artist' });
+      }
 
-        const newSet = {
-          artist: req.body.artist,
-          start: req.body.start,
-          end: req.body.end,
-          stage: req.body.stage
-        };
+      const newSet = {
+        artist: req.body.artist,
+        start: req.body.start,
+        end: req.body.end,
+        stage: req.body.stage
+      };
 
-        Festival.findOneAndUpdate(
-          { _id: req.params.festivalId },
-          { $push: { lineup: newSet } },
-          { new: true })
-          .then(festival => res.status(200).json(festival))
-          .catch(err => res.status(400).json({ festival: 'Festival not found' }));
-      })
+      Festival.findOneAndUpdate(
+        { _id: req.params.festivalId },
+        { $push: { lineup: newSet } },
+        { new: true })
+        .then(festival => res.status(200).json(festival))
+        .catch(err => res.status(400).json({ festival: 'Festival not found' }));
+    })
       .catch(err => res.status(400).json({ artist: 'Could not find this artist' }));
   });
 

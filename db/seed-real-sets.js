@@ -277,18 +277,12 @@ axios
       }
 
       const name = artistNameArr.slice(0, splitIdx).join(' ')
-
       console.log(`Adding ${name}`);
 
       const day = parseInt(artistArr[1].split(' ')[1]);
-
-      // let times = artistArr[2].split(' ').join('').split('pm');
-      // if (times.length === 1) times = times[0].split('am');
-      debugger
       const [start, end] = calcTimes(day, artistArr[2]);
 
       let stage = artistNameArr[artistNameArr.length - 2];
-
       if (stage === 'Theatre') {
         stage = 'Outdoor Theatre'
       } else if (stage === 'Stage') {
@@ -305,17 +299,17 @@ axios
       }
 
       console.log("Here's the params \n", params);
-      axios
-        .post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
-        .catch(err => console.log(err))
-      // Promise.resolve(
-      //   axios.post(`http://localhost:5000/api/artists`, { name }).then(artist => {
-      //     params.artist = artist.data._id
-      //     console.log("Here's the params \n", params);
-      //     axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
-      //       .catch(err => console.log(err))
-      //   }).catch(err => console.log(err))
-      // );
+      // axios
+      //   .post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+      //   .catch(err => console.log(err))
+      Promise.resolve(
+        axios.post(`http://localhost:5000/api/artists`, { name }).then(artist => {
+          params.artist = artist.data._id
+          console.log("Here's the params \n", params);
+          axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+            .catch(err => console.log(err))
+        }).catch(err => console.log(err))
+      );
     })
   })
   .catch(err => console.log(err));
@@ -324,7 +318,7 @@ function calcTimes(day, timeStr) {
   let [startTime, endTime] = timeStr
     .split(' - ')
     .map(str => str.split(' ').slice(0, 2));
-  debugger
+
   let endDay = day;
   let startHour = parseInt(startTime[0].split(':')[0]);
   let endHour = endTime ? parseInt(endTime[0].split(':')[0]) : 0;

@@ -38,7 +38,7 @@ class ScheduleSetItem extends Component {
       if (!this.state.going) backgroundColor = '#ccc';
       setStyle.backgroundColor = style.backgroundColor;
     }
-    debugger
+
     return (
       <div className="schedule-set-item"
         style={setStyle}

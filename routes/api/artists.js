@@ -35,9 +35,9 @@ router.post(
     Artist.findOne({ name: req.body.name })
       .then(artist => {
         if (artist) {
-          return res
-            .status(422)
-            .json({ artist: 'An artist with that name already exists' });
+          return res.json(artist)
+          // .status(422)
+          // .json({ artist: 'An artist with that name already exists' });
         }
 
         const newArtist = new Artist({
