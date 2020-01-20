@@ -1,18 +1,18 @@
 import * as SetApiUtil from '../util/set_api_util'
 
-export const RECEIVE_SET = 'RECEIVE_SET'
+export const RECEIVE_SET_GOING = 'RECEIVE_SET_GOING'
 
-const receiveSet = set => ({
-  type: RECEIVE_SET,
+const receiveSetGoing = set => ({
+  type: RECEIVE_SET_GOING,
   set
 });
 
 export const addUserToSet = (festivalId, setId) => dispatch => (
   SetApiUtil.addUserToSet(festivalId, setId)
-    .then(set => dispatch(receiveSet(set.data)))
+    .then(set => dispatch(receiveSetGoing(set.data)))
 );
 
 export const removeUserFromSet = (festivalId, setId) => dispatch => (
   SetApiUtil.removeUserFromSet(festivalId, setId)
-    .then(set => dispatch(receiveSet(set.data)))
+    .then(set => dispatch(receiveSetGoing(set.data)))
 );

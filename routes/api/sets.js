@@ -97,7 +97,9 @@ router.post(
           return res.status(404).json({ festival: 'Festival not found' });
         }
 
-        const set = festival.lineup.find(set => set._id.toHexString() === req.params.setId);
+        const set = festival.lineup
+          .find(set => set._id.toHexString() === req.params.setId);
+          
         if (!set) {
           return res.status(404).json({ set: 'Set not found' });
         }
