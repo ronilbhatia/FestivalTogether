@@ -111,7 +111,7 @@ router.post(
         set.going.push(req.user._id);
         festival
           .save()
-          .then(festival => res.json(set))
+          .then(festival => res.json({ set, user: req.user }))
           .catch(err => res.status(400).json(err));
       })
       .catch(err => res.status(400).json(err))
@@ -145,7 +145,7 @@ router.delete(
 
         festival
           .save()
-          .then(festival => res.json(set))
+          .then(festival => res.json({ set, user: req.user }))
           .catch(err => res.status(400).json(err));
       })
       .catch(err => res.status(400).json(err))
