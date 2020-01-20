@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SetSchema = new Schema({
+  // Keeping both artist & artistId to keep backwards compatible for now
   artist: {
+    type: String,
+  },
+  artistId: {
     type: Schema.Types.ObjectId,
-    // type: String,
-    ref: 'Artist',
-    required: true
+    ref: 'Artist'
   },
   start: {
     type: Date,

@@ -46,7 +46,7 @@ class ScheduleSetItem extends Component {
         onMouseLeave={() => this.setState({ boxHover: false })}
         onClick={this.handleClick}
       >
-        <h3>{typeof set.artist === 'string' ? set.artist : set.artist.name}</h3>
+        <h3>{set.artistId ? set.artistId.name : set.artist}</h3>
         <p>{startTime} - {endTime}</p>
         <button
           style={{ backgroundColor }}

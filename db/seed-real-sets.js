@@ -10,7 +10,7 @@ STEPS TO SCRAPE DATA FROM COACHELLA WEBSITE
 */
 
 const axios = require('axios');
-axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZTJmOTExNWRjYjgxNjBhMTdjMzQyOSIsIm5hbWUiOiJSb25pbCBCaGF0aWEiLCJlbWFpbCI6InJvbmlsYmhhdGlhQGdtYWlsLmNvbSIsImlhdCI6MTU3ODg2OTM5MSwiZXhwIjoxNTc5NDc0MTkxfQ.CWwpit2j7duMUVr7BcPbyqCv3yQFb8m5K3nv6ukJk-g';
+axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZTJmOTExNWRjYjgxNjBhMTdjMzQyOSIsIm5hbWUiOiJSb25pbCBCaGF0aWEiLCJlbWFpbCI6InJvbmlsYmhhdGlhQGdtYWlsLmNvbSIsImlhdCI6MTU3OTUwMTM5OCwiZXhwIjoxNTgwMTA2MTk4fQ.DxGTipICSkXYOT6C2qRlox7to-XCdrjL_UCsNuGygLk';
 
 let artists = [
   "070 Shake Gobi Sun, April 14, 7:15 pm - 7:50 pm Gobi Sun, April 21, 7:15 pm - 7:55 pm Add to favorites ",
@@ -294,17 +294,12 @@ axios
       const params = {
         start,
         end,
-        stage,
-        artist: name
+        stage
       }
 
-      console.log("Here's the params \n", params);
-      // axios
-      //   .post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
-      //   .catch(err => console.log(err))
       Promise.resolve(
         axios.post(`http://localhost:5000/api/artists`, { name }).then(artist => {
-          params.artist = artist.data._id
+          params.artistId = artist.data._id
           console.log("Here's the params \n", params);
           axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
             .catch(err => console.log(err))
@@ -315,6 +310,9 @@ axios
   .catch(err => console.log(err));
 
 function calcTimes(day, timeStr) {
+  // All sets should use W1 date
+  if (day > 16) day -= 7
+
   let [startTime, endTime] = timeStr
     .split(' - ')
     .map(str => str.split(' ').slice(0, 2));
@@ -328,6 +326,9 @@ function calcTimes(day, timeStr) {
 
   if (startTime[1] === 'pm' && startHour !== 12) startHour += 12;
   if (endTime && (endTime[1] === 'pm' && endHour !== 12)) endHour += 12;
+
+  // Get rid of this after March 10 (Daylight Savings) - other parts below may 
+  // need to change as well
   startHour -= 1;
   endHour -= 1;
 
@@ -352,7 +353,7 @@ function calcTimes(day, timeStr) {
   let endTimeStr = endHour + ':' + endMinutes;
   if (startHour < 10) startTimeStr = '0' + startTimeStr;
   if (endHour < 10) endTimeStr = '0' + endTimeStr;
-  // there is no end time if `times` is of length 2
+  // If there is no end time make it 1AM
   if (!endTime) endTimeStr = '00:00';
 
   const start = `2019-04-${day} ${startTimeStr}-08:00`;

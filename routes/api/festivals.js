@@ -15,7 +15,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Festivals works' }));
 // @desc   Get all festivals
 // @access Public
 router.get('/', (req, res) => {
-  Festival.find()
+  Festival.find({}, ['_id', 'name', 'year'])
     .then(festivals => res.json(festivals))
     .catch(err => res.status(400).json(err))
 });
@@ -56,12 +56,13 @@ router.post(
 // @access Public
 router.get('/search', (req, res) => {
   Festival.findOne(req.query)
+    .populate({ path: 'lineup.artistId' })
     .then(festival => {
       if (!festival) {
-        return res.status(404).json({ festival: 'Festival not found' })
+        return res.status(404).json({ festival: 'Festival not found' });
       }
 
-      res.status(200).json(festival)
+      res.status(200).json(festival);
     })
     .catch(err => res.status(400).json(err))
 });
@@ -71,23 +72,13 @@ router.get('/search', (req, res) => {
 // @access Public
 router.get('/:id', (req, res) => {
   Festival.findById(req.params.id)
-    // .populate({ path: 'lineup', populate: { path: 'artist', model: 'Artist' } })
-    .populate({ path: 'lineup.artist' })
+    .populate({ path: 'lineup.artistId' })
     .then(festival => {
       if (!festival) {
         return res.status(404).json({ festival: 'Festival not found' });
       }
 
-      // So this doesn't break for the first year where artist names rather than
-      // ids were used
-      if (festival.year === 2019 && festival.name === 'Coachella') {
-        res.status(200).json(festival);
-      } else {
-        // festival.populate({ path: 'lineup.artist' }).then(festival => {
-        console.log(festival);
-        res.status(200).json(festival);
-        // }).catch(err => res.status(400).json(err));
-      }
+      res.status(200).json(festival);
     })
     .catch(err => res.status(400).json(err));
 });

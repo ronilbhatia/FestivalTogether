@@ -13,12 +13,12 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { isValid, errors } = validateSetInput(req.body);
-
     if (!isValid) {
       return res.status(400).json(errors);
     }
+
     // Make sure artist exists
-    Artist.findById(req.body.artist).then(artist => {
+    Artist.findById(req.body.artistId).then(artist => {
       if (!artist) {
         return res
           .status(404)
@@ -26,7 +26,7 @@ router.post(
       }
 
       const newSet = {
-        artist: req.body.artist,
+        artistId: req.body.artistId,
         start: req.body.start,
         end: req.body.end,
         stage: req.body.stage

@@ -20,8 +20,8 @@ module.exports = function validateSetInput(data) {
   data.end = isEmpty(data.end) ? '' : data.end;
   data.stage = isEmpty(data.stage) ? '' : data.stage;
 
-  if (Validator.isEmpty(data.artist)) {
-    errors.artist = 'Artist field is required';
+  if (Validator.isEmpty(data.artistId) && Validator.isEmpty(data.artist)) {
+    errors.artist = 'Set must be associated with an artist';
   }
 
   // This validator is used, to valistart that valid start is supplied
