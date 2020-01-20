@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class ScheduleSetItem extends Component {
   constructor(props) {
     super(props);
-    const going = this.props.set.going.find(user_id => user_id === this.props.currentUser.id) ? true : false;
+    const going = this.props.set.going.find(user => user._id === this.props.currentUser.id) ? true : false;
     if (going.length) console.log('hi');
 
     this.state = { going };

@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 
-const festivals = require('./routes/api/festivals');
-const artists = require('./routes/api/artists');
 const users = require('./routes/api/users');
+const artists = require('./routes/api/artists');
+const festivals = require('./routes/api/festivals');
 
 const app = express();
 

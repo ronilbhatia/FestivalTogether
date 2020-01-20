@@ -104,11 +104,11 @@ router.post(
           return res.status(404).json({ set: 'Set not found' });
         }
 
-        if (set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
+        if (set.going.find(user_id => user_id.toHexString() === req.user._id.toHexString())) {
           return res.status(422).json({ set: 'You are already going to this set' });
         }
 
-        set.going.push({ name: req.user.name, _id: req.user._id });
+        set.going.push(req.user._id);
         festival
           .save()
           .then(festival => res.json(set))
@@ -136,15 +136,13 @@ router.delete(
           return res.status(404).json({ set: 'Set not found' });
         }
 
-        if (!set.going.find(user => user._id.toHexString() === req.user._id.toHexString())) {
+        if (!set.going.find(user_id => user_id.toHexString() === req.user._id.toHexString())) {
           return res.status(422).json({ set: 'You are already not going to this set' });
         }
 
-        const removeIndex = set.going
-          .map(user => user._id.toHexString())
-          .indexOf(req.user._id.toHexString());
-
+        const removeIndex = set.going.indexOf(req.user._id);
         set.going.splice(removeIndex, 1);
+
         festival
           .save()
           .then(festival => res.json(set))

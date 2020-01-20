@@ -72,7 +72,10 @@ router.get('/search', (req, res) => {
 // @access Public
 router.get('/:id', (req, res) => {
   Festival.findById(req.params.id)
-    .populate({ path: 'lineup.artistId' })
+    .populate([
+      { path: 'lineup.artistId' },  
+      { path: 'lineup.going', select: ['name', 'email'] }
+    ])
     .then(festival => {
       if (!festival) {
         return res.status(404).json({ festival: 'Festival not found' });
@@ -82,6 +85,25 @@ router.get('/:id', (req, res) => {
     })
     .catch(err => res.status(400).json(err));
 });
+
+// @route  PATCH /api/festivals/:id
+// @desc   Convert old festival with embedded User objs to User refs
+// @access Private
+router.patch(
+  '/:id', 
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Festival.findById(req.params.id)
+      .then(festival => {
+        festival.lineup.forEach(set => {
+          if (set.going && set.going.length) {
+            const going = set.going.map(user => user._id);
+            set.set('going', going);
+          }
+        })
+        festival.save().then(festival => res.json(festival));
+      });
+})
 
 router.use('/:festivalId/sets', sets);
 
