@@ -7,6 +7,7 @@ import configureStore from './store/store';
 import Root from './components/Root';
 import { setAuthToken } from './util/session_api_util';
 import { logoutUser, receiveCurrentUser } from './actions/session_actions';
+import { openModal } from './actions/modal_actions'
 import * as serviceWorker from './serviceWorker';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (decoded.exp < currentTime) {
       // Logout user
       store.dispatch(logoutUser());
-      // Redirect to login
-      window.location.href = '/login';
+      // Redirect to Log In
+      store.dispatch(openModal())
     }
   }
   // Grab root div and replace with react app
