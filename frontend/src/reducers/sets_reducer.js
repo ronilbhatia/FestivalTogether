@@ -18,7 +18,6 @@ const setsReducer = (state = {}, action) => {
     case RECEIVE_SET_GOING:
       nextState = merge({}, state);
       set = nextState[action.set._id];
-      debugger
       set.going.push(action.user)
       return nextState;
     case REMOVE_SET_GOING:

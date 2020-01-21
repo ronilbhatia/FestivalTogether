@@ -56,7 +56,10 @@ router.post(
 // @access Public
 router.get('/search', (req, res) => {
   Festival.findOne(req.query)
-    .populate({ path: 'lineup.artistId' })
+    .populate([
+      { path: 'lineup.artistId' },
+      { path: 'lineup.going', select: ['name', 'email'] }
+    ])
     .then(festival => {
       if (!festival) {
         return res.status(404).json({ festival: 'Festival not found' });
