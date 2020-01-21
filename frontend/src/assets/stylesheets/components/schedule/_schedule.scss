@@ -96,7 +96,7 @@
   .schedule {
     display: flex;
     flex-direction: column;
-    width: 2250px;
+    width: 2275px;
     padding-top: 30px;
 
     .schedule-times {
@@ -107,6 +107,7 @@
       top: 55px;
       z-index: 5;
       background-color: antiquewhite;
+      padding-right: 25px;
 
       .schedule-times-empty {
         width: 150px;
@@ -114,7 +115,14 @@
         position: sticky;
         left: 0;
       }
+
+      div[class^='schedule-times-'], div[class*=' schedule-times-'] {
+        width: 150px;
+        display: flex;
+        justify-content: flex-end;
+      }
     }
+
 
     .schedule-row {
       display: flex;
@@ -131,7 +139,7 @@
       }
 
       .schedule-sets {
-        width: 2100px;
+        width: 2090px;
         position: relative;
       }
 
