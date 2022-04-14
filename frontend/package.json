@@ -6,7 +6,7 @@
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
