@@ -259,7 +259,7 @@ const stages = [
 ];
 
 axios
-  .get('http://localhost:5000/api/festivals/search?name=Coachella&year=2020')
+  .get('http://localhost:5001/api/festivals/search?name=Coachella&year=2022')
   .then(coachella => {
     const coachellaId = coachella.data._id;
 
@@ -298,10 +298,10 @@ axios
       }
 
       Promise.resolve(
-        axios.post(`http://localhost:5000/api/artists`, { name }).then(artist => {
+        axios.post(`http://localhost:5001/api/artists`, { name }).then(artist => {
           params.artistId = artist.data._id
           console.log("Here's the params \n", params);
-          axios.post(`http://localhost:5000/api/festivals/${coachellaId}/sets`, params)
+          axios.post(`http://localhost:5001/api/festivals/${coachellaId}/sets`, params)
             .catch(err => console.log(err))
         }).catch(err => console.log(err))
       );

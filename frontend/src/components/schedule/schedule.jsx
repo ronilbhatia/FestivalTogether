@@ -11,7 +11,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchFestivalByName('Coachella', 2019);
+    this.props.fetchFestivalByName('Coachella', 2022);
   }
 
   renderDays() {
